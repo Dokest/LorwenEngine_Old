@@ -20,16 +20,20 @@ namespace Lorwen {
 		m_Height = height;
 		m_Title = title;
 
-
 		if (glfwInit() == GLFW_FALSE)
 		{
 			printf("GLFW failed to initiate!\n");
 			return;
 		}
 
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+
 		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
 
 		glfwMakeContextCurrent(m_Window);
+		glfwSwapInterval(0);
 
 		if (GLenum err = glewInit() != GLEW_OK)
 		{
@@ -37,6 +41,9 @@ namespace Lorwen {
 			fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 			return;
 		}
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		printf("%s\n", glGetString(GL_VERSION));
 	}
@@ -61,12 +68,9 @@ namespace Lorwen {
 		glfwPollEvents();
 	}
 
-
-	void Window::ShowOpenGLErrors()
+	void Window::SetVSync(bool bSync)
 	{
-		GLenum error;
-		while((error = glGetError()) != GL_NO_ERROR)
-			printf(" -- OpenGL Error: %d\n-----------------------\n", error);
+		glfwSwapInterval(bSync);
 	}
 
 }

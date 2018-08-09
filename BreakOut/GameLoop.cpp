@@ -3,65 +3,53 @@
 #include "GL/glew.h"
 
 #include "Window.h"
+#include "BasicTimer.h"
 
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
+#include "Levels/BasicLevel.h"
 
-#include "SpriteRenderer.h"
+#define LORWEN_SHOW_FPS 1
 
 using namespace Lorwen;
-using namespace Graphics;
+//using namespace Graphics;
 
 int main()
 {
-	Lorwen::Window gameWindow;
+	Window gameWindow;
 
-	gameWindow.Init(800, 600, "Lorwen Engine Prototype");
+	gameWindow.Init(800, 600, "Lorwen Engine Prototype - Breakout");
+	BasicTimer timer;
 
-	float positions[] = {
-		-1.0f, -1.0f, 0.0f,
-		 1.0f, -1.0f, 0.0f,
-		 0.0f,  1.0f, 0.0f
+	BasicLevel level;
+	level.Load();
+	level.Init();
 
-// 		-0.5f, -0.5f,
-// 		 0.5f, -0.5f,
-// 		 0.5f,  0.5f,
-// 		-0.5f,  0.5f
-	};
-
-	unsigned int indices[] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
- 	VertexBuffer vb(positions, 3 * 3 * sizeof(float));
- 	IndexBuffer ib(indices, 6);
-// 
-	SpriteRenderer spriteRenderer;
-// 
- 	spriteRenderer.Submit(&SpriteRenderable(&vb, &ib));
-
-	/* TEST */
-	unsigned int bufferID;
-	glGenBuffers(1, &bufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-	glBufferData(GL_ARRAY_BUFFER, 3 * 3 * sizeof(float), positions, GL_STATIC_DRAW);
+	int frames = 0;
+	double time = 0.0f;
+	double currentFrame = 0.0f;
+	double lastFrame = 0.0f;
+	gameWindow.SetVSync(false);
 
 	while (!gameWindow.ShouldCloseWindow())
 	{
+		glClearColor(0.0, 0.0, 0.0, 1.0);
+		timer.FrameStart();
 		gameWindow.Clear(GL_COLOR_BUFFER_BIT);
+
 
 		gameWindow.PollEvents();
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		level.Render();
 
 
-		spriteRenderer.Render();
-		gameWindow.ShowOpenGLErrors();
+#if LORWEN_SHOW_FPS
+		frames = timer.GetFrames();
+		if(frames != -5)
+			printf("%d FPS\n", frames);
+#endif
 
+		timer.FrameEnd();
 		gameWindow.SwapBuffers();
 	}
 
-
-
+	
 }

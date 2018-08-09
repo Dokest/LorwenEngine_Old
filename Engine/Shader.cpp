@@ -13,9 +13,11 @@ namespace Lorwen { namespace Graphics {
 	{
 		unsigned int vertexID, fragmentID, geometryID;
 
+		const GLint* length = new GLint(-1);
+
 		// Vertex Shader
 		vertexID = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexID, 1, &vertexSource, NULL);
+		glShaderSource(vertexID, 1, &vertexSource, length);
 		glCompileShader(vertexID);
 		CheckCompileErrors(vertexID, "VERTEX");
 
@@ -23,7 +25,7 @@ namespace Lorwen { namespace Graphics {
 
 		// Fragment Shader
 		fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentID, 1, &fragmentSource, NULL);
+		glShaderSource(fragmentID, 1, &fragmentSource, length);
 		glCompileShader(fragmentID);
 		CheckCompileErrors(fragmentID, "FRAGMENT");
 

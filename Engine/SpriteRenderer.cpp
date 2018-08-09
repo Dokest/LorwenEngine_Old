@@ -2,10 +2,13 @@
 
 #include <typeinfo>
 
+#include "VertexArray.h"
+
 namespace Lorwen { namespace Graphics {
 
 	SpriteRenderer::SpriteRenderer()
 	{
+
 
 	}
 
@@ -16,41 +19,66 @@ namespace Lorwen { namespace Graphics {
 
 	void SpriteRenderer::Render()
 	{
-		float positions[] = {
-			-1.0f, -1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			0.0f,  1.0f, 0.0f
-		};
+		m_IBO->Bind();
+		m_VAO->Bind();
 
-		unsigned int bufferID;
-		glGenBuffers(1, &bufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (const void*)0);
-		glBufferData(GL_ARRAY_BUFFER, 3 * 3 * sizeof(float), positions, GL_STATIC_DRAW);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		/*
+		m_Sprites[0].UseShader();
+		int i = 0;
 		for (SpriteRenderable& sprite : m_Sprites)
 		{
-			printf("First!\n");
-			//sprite.IBO->Bind();
-			sprite.VBO->Bind();
-			//glDrawElements(GL_TRIANGLES, (GLsizei)sprite.IBO->GetCount(), GL_UNSIGNED_INT, nullptr);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-			sprite.VBO->Unbind();
-			printf("End!\n");
+
+			sprite.GetShader()->SetMatrix4("mvp", m_ProjectionMatrix *  sprite.GetTransform());
+			sprite.GetShader()->SetVector4f("spriteColor", sprite.GetTint());
+
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+			i++;
 		}
-		*/
+
 	}
 
 	void SpriteRenderer::Submit(BaseRenderable* renderable)
 	{
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		layout.Push<float>(4);
+
 		SpriteRenderable* sprite = static_cast<SpriteRenderable*>(renderable);
 		if (sprite != nullptr)
+		{
 			m_Sprites.push_back(*sprite);
+		}
 		else
 			printf("Tried to submit something into SpriteRenderer that was NOT a SpriteRenderable\n");
+
+		printf("Submitted!\n");
+	}
+
+	void SpriteRenderer::Init()
+	{
+		float positions[] = {
+			-0.5f, -0.5f,
+			 0.5f, -0.5f,
+			 0.5f,  0.5f,
+			-0.5f,  0.5f
+		};
+
+		m_VBO = new VertexBuffer(positions, 4 * 2 * sizeof(float));
+		m_VAO = new VertexArray;
+
+
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		m_VAO->AddBuffer(*m_VBO, layout);
+
+		unsigned int indices[] =
+		{
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		m_IBO = new IndexBuffer(indices, 6);
+
+		m_ProjectionMatrix = Maths::Mat4::Orthographic(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
 	}
 
 } }

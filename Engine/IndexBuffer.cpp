@@ -2,13 +2,12 @@
 
 namespace Lorwen { namespace Graphics {
 
-	IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
+	IndexBuffer::IndexBuffer(const void* data, unsigned int count, GLenum DrawType /*= GL_STATIC_DRAW*/)
 		: m_Count(count)
 	{
 		glGenBuffers(1, &m_BufferID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_BufferID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), (const void*)data, DrawType);
 	}
 
 	IndexBuffer::~IndexBuffer()

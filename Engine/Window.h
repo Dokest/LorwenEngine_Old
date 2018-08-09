@@ -28,6 +28,10 @@ namespace Lorwen {
 
 		void PollEvents();
 
-		void ShowOpenGLErrors();
+		void SetVSync(bool bSync);
+
+		inline double GetTime() const { return glfwGetTime(); }
+
+		inline GLFWwindow* GetWindowPtr() const { return m_Window; }
 	};
 }

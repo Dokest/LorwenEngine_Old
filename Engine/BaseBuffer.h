@@ -15,5 +15,7 @@ namespace Lorwen { namespace Graphics {
 
 		virtual void Bind() const;
 		virtual void Unbind() const;
+
+		inline const unsigned int GetShaderID() const { return m_BufferID; }
 	};
 } }

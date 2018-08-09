@@ -9,7 +9,8 @@ namespace Lorwen { namespace Graphics {
 	private:
 		unsigned int m_Count;
 	public:
-		IndexBuffer(const unsigned int* data, unsigned int count);
+		IndexBuffer(const void* data, unsigned int count, GLenum DrawType = GL_STATIC_DRAW);
+		IndexBuffer() {}
 		~IndexBuffer();
 
 		void Bind() const;

@@ -4,6 +4,7 @@
 
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "VertexArray.h"
 
 #include "SpriteRenderable.h" 
 
@@ -16,6 +17,10 @@ namespace Lorwen { namespace Graphics {
 	private:
 		std::vector<SpriteRenderable> m_Sprites;
 
+		IndexBuffer* m_IBO;
+		VertexArray* m_VAO;
+		VertexBuffer* m_VBO;
+
 	public:
 		SpriteRenderer();
 		~SpriteRenderer();
@@ -23,6 +28,8 @@ namespace Lorwen { namespace Graphics {
 		virtual void Render();
 
 		virtual void Submit(BaseRenderable* renderable);
+
+		void Init();
 	};
 } }
 

@@ -20,35 +20,74 @@
       <Filter>Maths</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Graphics\Utils</Filter>
+      <Filter>Graphics Engine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="BaseRenderer.h">
-      <Filter>Graphics\Renderers</Filter>
+      <Filter>Graphics Engine\Renderers</Filter>
     </ClInclude>
     <ClInclude Include="VertexBuffer.h">
-      <Filter>Graphics\Buffers</Filter>
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
     <ClInclude Include="IndexBuffer.h">
-      <Filter>Graphics\Buffers</Filter>
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
     <ClInclude Include="BaseBuffer.h">
-      <Filter>Graphics\Buffers</Filter>
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
-      <Filter>Graphics\Renderers</Filter>
+      <Filter>Graphics Engine\Renderers</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderable.h" />
     <ClInclude Include="BaseRenderable.h">
-      <Filter>Graphics\Renderables</Filter>
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexArray.h">
+      <Filter>Graphics Engine\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderable.h">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferLayout.h">
+      <Filter>Graphics Engine\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLevel.h">
+      <Filter>WorldObjects\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTimer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseWorldRegister.h">
+      <Filter>WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObjectRenderer.h">
+      <Filter>WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLevelState.h">
+      <Filter>WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameInstance.h">
+      <Filter>WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseLevelMode.h">
+      <Filter>WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicObjectManager.h">
+      <Filter>WorldObjects\Registers</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObject.h">
+      <Filter>WorldObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugOpenGL.h" />
+    <ClInclude Include="BatchSpriteRenderer.h">
+      <Filter>Graphics Engine\Renderers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,49 +104,92 @@
       <Filter>Maths</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Graphics</Filter>
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Graphics\Utils</Filter>
+      <Filter>Graphics Engine\Utils</Filter>
     </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Graphics\Buffers</Filter>
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClCompile>
     <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Graphics\Buffers</Filter>
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClCompile>
     <ClCompile Include="BaseBuffer.cpp">
-      <Filter>Graphics\Buffers</Filter>
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Graphics\Renderers</Filter>
+      <Filter>Graphics Engine\Renderers</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderable.cpp" />
+    <ClCompile Include="SpriteRenderable.cpp">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexArray.cpp">
+      <Filter>Graphics Engine\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicObjectManager.cpp">
+      <Filter>WorldObjects\Registers</Filter>
+    </ClCompile>
+    <ClCompile Include="BatchSpriteRenderer.cpp">
+      <Filter>Graphics Engine\Renderers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Maths">
       <UniqueIdentifier>{918aafd7-5429-4b4b-b393-c487e091b086}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics">
+    <Filter Include="Utils">
+      <UniqueIdentifier>{e9b5dd19-7c67-4216-af41-d06aee4b9ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics Engine">
       <UniqueIdentifier>{52d9053c-eda3-4b06-ab17-44feccaae9ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Utils">
+    <Filter Include="Graphics Engine\Utils">
       <UniqueIdentifier>{cb599cec-112f-42a5-942f-9981da4add3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Renderers">
+    <Filter Include="Graphics Engine\Renderers">
       <UniqueIdentifier>{98d67dc0-27ed-4922-9094-32c4969741ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Buffers">
+    <Filter Include="Graphics Engine\Buffers">
       <UniqueIdentifier>{b92ec809-3461-492f-8282-243647103eae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Graphics\Renderables">
+    <Filter Include="Graphics Engine\Renderables">
       <UniqueIdentifier>{1f585b47-640d-431c-96be-bbcee18f89f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics Engine\Shaders">
+      <UniqueIdentifier>{a71ad6a5-d5ab-420c-ac0f-8eec9cc51589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WorldObjects">
+      <UniqueIdentifier>{7633099d-d5df-4f45-8e86-24921e12aad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WorldObjects\Registers">
+      <UniqueIdentifier>{361ba5e2-4a3e-4034-bbb8-ba977bf70f9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WorldObjects\Renderers">
+      <UniqueIdentifier>{4676fb0e-a7e4-41cd-9461-f2dbcf702d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WorldObjects\Levels">
+      <UniqueIdentifier>{71dcfcab-954d-4e76-9140-108a21ca37ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Basic.frag">
+      <Filter>Graphics Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\Basic.vert">
+      <Filter>Graphics Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\BatchSprite.frag">
+      <Filter>Graphics Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\BatchSprite.vert">
+      <Filter>Graphics Engine\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
