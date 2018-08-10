@@ -7,7 +7,6 @@ namespace Lorwen { namespace Graphics {
 	VertexBuffer::VertexBuffer()
 	{
 		glGenBuffers(1, &m_BufferID);
-		glBindBuffer(GL_ARRAY_BUFFER, m_BufferID);
 	}
 
 	VertexBuffer::VertexBuffer(const void* data, unsigned int size)

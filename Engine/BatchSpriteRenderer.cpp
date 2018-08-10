@@ -19,7 +19,9 @@ namespace Lorwen { namespace Graphics {
 
 	BatchSpriteRenderer::~BatchSpriteRenderer()
 	{
-
+		delete m_IBO;
+		delete m_VAO;
+		delete m_VBO;
 	}
 
 	void BatchSpriteRenderer::Init()
@@ -62,6 +64,47 @@ namespace Lorwen { namespace Graphics {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, RENDERER_INDICES_SIZE, Indices, GL_STATIC_DRAW);
 
 		glBindVertexArray(0);
+		delete Indices;
+	}
+
+	void BatchSpriteRenderer::Init2()
+	{
+		/* PROJECTION MATRIX */
+		m_ProjectionMatrix = Maths::Mat4::Orthographic(0.0f, 800.0f, 0.0f, 600.0f, 1.0f, -1.0f);
+
+		m_VAO = new VertexArray();
+
+		m_VBO = new VertexBuffer();
+		ShowOpenGLErrors();
+		m_Layout = new VertexBufferLayout();
+		m_Layout->Push<float>(2);
+		m_Layout->Push<float>(4, GL_TRUE);
+		ShowOpenGLErrors();
+		m_VAO->AddBuffer(*m_VBO, *m_Layout);
+		ShowOpenGLErrors();
+
+		m_VBO->BufferData(RENDERER_BUFFER_SIZE, NULL, GL_STATIC_DRAW);
+
+		unsigned int* Indices = new unsigned int[RENDERER_INDICES_SIZE];
+
+		int offset = 0;
+		for (int i = 0; i < RENDERER_INDICES_SIZE; i += 6)
+		{
+			Indices[i] = offset + 0;
+			Indices[i + 1] = offset + 1;
+			Indices[i + 2] = offset + 2;
+
+			Indices[i + 3] = offset + 2;
+			Indices[i + 4] = offset + 3;
+			Indices[i + 5] = offset + 0;
+
+			offset += 4;
+		}
+
+		m_IBO = new IndexBuffer(Indices, RENDERER_INDICES_SIZE, GL_STATIC_DRAW);
+
+		m_VAO->Unbind();
+
 		delete Indices;
 	}
 
@@ -134,6 +177,28 @@ namespace Lorwen { namespace Graphics {
 		m_IndexCount += 6;
 
 		//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+		glBufferSubData(GL_ARRAY_BUFFER, ((m_IndexCount / 6) - 1) * sizeof(buffer), sizeof(buffer), buffer);
+	}
+
+	void BatchSpriteRenderer::Submit2(SpriteRenderable& sprite)
+	{
+		const Vec2& Position = sprite.GetLocation();
+		const Vec4& Color = sprite.GetTint();
+		const Vec2& Size = sprite.GetSize();
+
+		float buffer[] =
+		{
+			/* VERTEX */								/* COLOR */
+			Position.x,			 Position.y + Size.y,	Color.x, Color.y, Color.z, Color.w,
+			Position.x + Size.x, Position.y + Size.y,	Color.x, Color.y, Color.z, Color.w,
+			Position.x + Size.x, Position.y,			Color.x, Color.y, Color.z, Color.w,
+			Position.x,			 Position.y,			Color.x, Color.y, Color.z, Color.w
+		};
+
+		m_IndexCount += 6;
+
+		m_VBO->Bind();
 		glBufferSubData(GL_ARRAY_BUFFER, ((m_IndexCount / 6) - 1) * sizeof(buffer), sizeof(buffer), buffer);
 	}
 
@@ -185,12 +250,23 @@ namespace Lorwen { namespace Graphics {
 // 		m_Sprites[0].GetShader()->SetMatrix4("pr_matrix", m_ProjectionMatrix);
 #endif
 		glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, NULL);
-		printf("SPRITES DRAWN = %d\n", (m_IndexCount / 6));
+		//printf("SPRITES DRAWN = %d\n", (m_IndexCount / 6));
  		ShowOpenGLErrors();
 // 		m_IBO->Unbind();
 // 		glBindVertexArray(0);
 
 		//m_IndexCount = 0;
+	}
+
+	void BatchSpriteRenderer::Render2()
+	{
+		m_VAO->Bind();
+
+		m_IBO->Bind();
+
+		ShowOpenGLErrors();
+		glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, NULL);
+		ShowOpenGLErrors();
 	}
 
 	void BatchSpriteRenderer::Begin()

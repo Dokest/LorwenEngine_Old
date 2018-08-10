@@ -43,7 +43,7 @@ int main()
 
 #if LORWEN_SHOW_FPS
 		frames = timer.GetFrames();
-		if(frames != -5)
+		if (frames != -5)
 			printf("%d FPS\n", frames);
 #endif
 

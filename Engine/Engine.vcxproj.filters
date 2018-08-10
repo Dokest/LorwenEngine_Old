@@ -89,6 +89,9 @@
     <ClInclude Include="BatchSpriteRenderer.h">
       <Filter>Graphics Engine\Renderers</Filter>
     </ClInclude>
+    <ClInclude Include="BasePlayerController.h">
+      <Filter>WorldObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths\Mat4.cpp">

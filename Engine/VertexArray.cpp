@@ -11,7 +11,6 @@ namespace Lorwen { namespace Graphics {
 	VertexArray::~VertexArray()
 	{
 		glDeleteVertexArrays(1, &m_BufferID);
-
 	}
 
 	void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout)

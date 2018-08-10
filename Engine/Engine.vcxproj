@@ -156,6 +156,7 @@
     <ClInclude Include="BaseBuffer.h" />
     <ClInclude Include="BaseLevel.h" />
     <ClInclude Include="BaseLevelMode.h" />
+    <ClInclude Include="BasePlayerController.h" />
     <ClInclude Include="BatchSpriteRenderer.h" />
     <ClInclude Include="DebugOpenGL.h" />
     <ClInclude Include="WorldObject.h" />

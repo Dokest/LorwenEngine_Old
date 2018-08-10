@@ -38,12 +38,12 @@ namespace Lorwen { namespace Graphics {
 	class BatchSpriteRenderer : public BaseRenderer
 	{
 	private:
-		//VertexBuffer* m_VBO;
+		VertexBuffer* m_VBO;
 		unsigned int m_VBOI;
-		//VertexArray* m_VAO;
+		VertexArray* m_VAO;
 		unsigned int m_VAOI;
 		IndexBuffer* m_IBO;
-		//VertexBufferLayout* m_Layout;
+		VertexBufferLayout* m_Layout;
 		
 		unsigned int VBO;
 		unsigned int VAO;
@@ -65,8 +65,13 @@ namespace Lorwen { namespace Graphics {
 
 		void Init();
 
+		
 		void Submit(BaseRenderable* renderable) override;
 		void Submit(SpriteRenderable& sprite);
+
+		void Init2();
+		void Submit2(SpriteRenderable& sprite);
+		void Render2();
 
 		void Render();
 
