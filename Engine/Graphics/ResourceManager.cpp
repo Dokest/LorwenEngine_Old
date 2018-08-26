@@ -10,7 +10,6 @@
 
 namespace Lorwen {
 
-
 	std::map<std::string, Lorwen::Graphics::Shader> ResourceManager::Shaders;
 
 	std::map<std::string, Lorwen::Graphics::Texture2D> ResourceManager::Textures;

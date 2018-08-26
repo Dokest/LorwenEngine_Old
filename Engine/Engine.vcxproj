@@ -76,6 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\Engine\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Configuration)\Engine</IntDir>
+    <IncludePath>$(IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -83,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Simple OpenGL Image Library\src;$(SolutionDir)Dependencies\glfw 3.2.1 win32\include;$(SolutionDir)Dependencies\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Simple OpenGL Image Library\src;$(SolutionDir)Dependencies\glfw 3.2.1 win32\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
@@ -117,7 +118,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Simple OpenGL Image Library\src;$(SolutionDir)Dependencies\glfw 3.2.1 win32\include;$(SolutionDir)Dependencies\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\Simple OpenGL Image Library\src;$(SolutionDir)Dependencies\glfw 3.2.1 win32\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
     </ClCompile>
@@ -153,55 +154,67 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BaseBuffer.h" />
-    <ClInclude Include="BaseLevel.h" />
-    <ClInclude Include="BaseLevelMode.h" />
-    <ClInclude Include="BasePlayerController.h" />
-    <ClInclude Include="BatchSpriteRenderer.h" />
-    <ClInclude Include="DebugOpenGL.h" />
-    <ClInclude Include="WorldObject.h" />
-    <ClInclude Include="BaseRenderer.h" />
-    <ClInclude Include="BaseWorldRegister.h" />
-    <ClInclude Include="BasicObjectManager.h" />
-    <ClInclude Include="BasicTimer.h" />
-    <ClInclude Include="BaseGameInstance.h" />
-    <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Alphabet.h" />
+    <ClInclude Include="Game\GameInputManager.h" />
+    <ClInclude Include="Game\GameObject.h" />
+    <ClInclude Include="Game\WorldObject.h" />
+    <ClInclude Include="Graphics\BaseBuffer.h" />
+    <ClInclude Include="Game\Component.h" />
+    <ClInclude Include="Game\BaseLevel.h" />
+    <ClInclude Include="Graphics\BatchSpriteRenderer.h" />
+    <ClInclude Include="Graphics\DebugOpenGL.h" />
+    <ClInclude Include="Graphics\BaseRenderer.h" />
+    <ClInclude Include="Graphics\Renderable.h" />
+    <ClInclude Include="Graphics\SpriteRen.h" />
+    <ClInclude Include="Game\InputComponent.h" />
+    <ClInclude Include="Game\InputParameters.h" />
+    <ClInclude Include="Game\PlayerController.h" />
+    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="Utils\BasicTimer.h" />
+    <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Maths\Mat4.h" />
     <ClInclude Include="Maths\Maths.h" />
     <ClInclude Include="Maths\Maths_Func.h" />
     <ClInclude Include="Maths\Vec2.h" />
     <ClInclude Include="Maths\Vec3.h" />
     <ClInclude Include="Maths\Vec4.h" />
-    <ClInclude Include="BaseRenderable.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="SpriteRenderable.h" />
-    <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="Texture2D.h" />
-    <ClInclude Include="VertexArray.h" />
-    <ClInclude Include="VertexBuffer.h" />
-    <ClInclude Include="VertexBufferLayout.h" />
-    <ClInclude Include="Window.h" />
-    <ClInclude Include="BaseObjectRenderer.h" />
-    <ClInclude Include="BaseLevelState.h" />
+    <ClInclude Include="Graphics\BaseRenderable.h" />
+    <ClInclude Include="Graphics\ResourceManager.h" />
+    <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\SpriteRenderable.h" />
+    <ClInclude Include="Graphics\SpriteRenderer.h" />
+    <ClInclude Include="Graphics\Texture2D.h" />
+    <ClInclude Include="Graphics\VertexArray.h" />
+    <ClInclude Include="Graphics\VertexBuffer.h" />
+    <ClInclude Include="Graphics\VertexBufferLayout.h" />
+    <ClInclude Include="Graphics\Window.h" />
+    <ClInclude Include="Game\GameObjectRegister.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseBuffer.cpp" />
-    <ClCompile Include="BasicObjectManager.cpp" />
-    <ClCompile Include="BatchSpriteRenderer.cpp" />
-    <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="Game\GameInputManager.cpp" />
+    <ClCompile Include="Game\GameObject.cpp" />
+    <ClCompile Include="Game\WorldObject.cpp" />
+    <ClCompile Include="Graphics\BaseBuffer.cpp" />
+    <ClCompile Include="Graphics\BatchSpriteRenderer.cpp" />
+    <ClCompile Include="Graphics\IndexBuffer.cpp" />
+    <ClCompile Include="Game\InputComponent.cpp" />
     <ClCompile Include="Maths\Mat4.cpp" />
     <ClCompile Include="Maths\Vec2.cpp" />
     <ClCompile Include="Maths\Vec3.cpp" />
     <ClCompile Include="Maths\Vec4.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="SpriteRenderable.cpp" />
-    <ClCompile Include="SpriteRenderer.cpp" />
-    <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="VertexArray.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Graphics\ResourceManager.cpp" />
+    <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\SpriteRenderable.cpp" />
+    <ClCompile Include="Graphics\SpriteRenderer.cpp" />
+    <ClCompile Include="Graphics\Texture2D.cpp" />
+    <ClCompile Include="Graphics\VertexArray.cpp" />
+    <ClCompile Include="Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="Graphics\Window.cpp" />
+    <ClCompile Include="Game\GameObjectRegister.cpp" />
+    <ClCompile Include="Graphics\Renderable.cpp" />
+    <ClCompile Include="Graphics\SpriteRen.cpp" />
+    <ClCompile Include="Game\PlayerController.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Basic.frag" />

@@ -8,6 +8,8 @@
 #include "SpriteRenderable.h"
 #include "VertexBufferLayout.h"
 
+#include "SpriteRen.h"
+
 namespace Lorwen { namespace Graphics {
 
 
@@ -179,6 +181,83 @@ namespace Lorwen { namespace Graphics {
 		//glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 		glBufferSubData(GL_ARRAY_BUFFER, ((m_IndexCount / 6) - 1) * sizeof(buffer), sizeof(buffer), buffer);
+	}
+
+	void BatchSpriteRenderer::SubmitSprite(SpriteRen* sprite)
+	{
+		const Vec2& Position = Vec2(sprite->Transform.Position.x, sprite->Transform.Position.y);
+		const Vec4& Color = sprite->Tint;
+		const Vec2& Size = Vec2(sprite->Transform.Size.x, sprite->Transform.Size.y);
+
+		float buffer[] =
+		{
+			/* VERTEX */								/* COLOR */
+			Position.x,			 Position.y + Size.y,	Color.x, Color.y, Color.z, Color.w,
+			Position.x + Size.x, Position.y + Size.y,	Color.x, Color.y, Color.z, Color.w,
+			Position.x + Size.x, Position.y,			Color.x, Color.y, Color.z, Color.w,
+			Position.x,			 Position.y,			Color.x, Color.y, Color.z, Color.w
+		};
+
+		m_IndexCount += 6;
+
+		m_VBO->Bind();
+		glBufferSubData(GL_ARRAY_BUFFER, ((m_IndexCount / 6) - 1) * sizeof(buffer), sizeof(buffer), buffer);
+	}
+
+	void BatchSpriteRenderer::SubmitSprite(std::vector<SpriteRen*>* sprites, GLenum drawType)
+	{
+		std::vector<float> buffers;
+
+		SpriteRen* sprite;
+
+		//printf("Mass submit -> Nº %d, %d\n", sprites->size(), buffers.size());
+
+		for (unsigned int i = 0; i < sprites->size(); i++)
+		{
+			sprite = (*sprites)[i];
+
+			/* If Sprite is not VISIBLE it should be skipped! */
+			if (!sprite->bIsVisible)
+				continue;
+
+			const Vec2& Position = Vec2(sprite->Transform.Position.x, sprite->Transform.Position.y);
+			const Vec4& Color = sprite->Tint;
+			const Vec2& Size = Vec2(sprite->Transform.Size.x, sprite->Transform.Size.y);
+
+			buffers.push_back(Position.x);
+			buffers.push_back(Position.y + Size.y);
+			buffers.push_back(Color.x);
+			buffers.push_back(Color.y);
+			buffers.push_back(Color.z);
+			buffers.push_back(Color.w);
+
+			buffers.push_back(Position.x + Size.x);
+			buffers.push_back(Position.y + Size.y);
+			buffers.push_back(Color.x);
+			buffers.push_back(Color.y);
+			buffers.push_back(Color.z);
+			buffers.push_back(Color.w);
+
+			buffers.push_back(Position.x + Size.x);
+			buffers.push_back(Position.y);
+			buffers.push_back(Color.x);
+			buffers.push_back(Color.y);
+			buffers.push_back(Color.z);
+			buffers.push_back(Color.w);
+
+			buffers.push_back(Position.x);
+			buffers.push_back(Position.y);
+			buffers.push_back(Color.x);
+			buffers.push_back(Color.y);
+			buffers.push_back(Color.z);
+			buffers.push_back(Color.w);
+		}
+		
+			m_IndexCount += 6 * sprites->size();
+			m_VBO->Bind();
+			glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffers.size(), &buffers[0], drawType);
+
+			buffers.clear();
 	}
 
 	void BatchSpriteRenderer::Submit2(SpriteRenderable& sprite)

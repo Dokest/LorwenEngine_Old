@@ -2,7 +2,7 @@
 
 #include "BaseRenderable.h"
 
-#include "Maths/Mat4.h"
+#include "Maths/Maths.h"
 
 namespace Lorwen { namespace Graphics {
 
@@ -14,8 +14,7 @@ namespace Lorwen { namespace Graphics {
 	public:
 		virtual void Render() = 0;
 
-		virtual void Submit(BaseRenderable* renderable) = 0;
-
+		//virtual void Submit(BaseRenderable* renderable) = 0;
 
 		inline const Maths::Mat4 GetProjectionMatrix() const { return m_ProjectionMatrix; }
 	};

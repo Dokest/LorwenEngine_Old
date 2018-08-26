@@ -35,6 +35,10 @@ namespace Lorwen {
 		glfwMakeContextCurrent(m_Window);
 		glfwSwapInterval(0);
 
+		/* Callbacks */
+		glfwSetKeyCallback(m_Window, InputKey_Callback);
+
+
 		if (GLenum err = glewInit() != GLEW_OK)
 		{
 			printf("GLEW initialization failed!\n");
@@ -46,6 +50,32 @@ namespace Lorwen {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		printf("%s\n", glGetString(GL_VERSION));
+
+
+		/* Input Manager */
+		m_InputManager = GameInputManager();
+		
+	}
+
+	void Window::InputKey_Callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		Window* userWindow = (Window*)glfwGetWindowUserPointer(window);
+
+		switch (action)
+		{
+		case 0: // RELEASE
+			userWindow->m_InputManager.InputKey(key, EInputCategory::Release);
+			return;
+		case 1: // PRESS
+			userWindow->m_InputManager.InputKey(key, EInputCategory::Press);
+			return;
+		case 2: // HOLD
+			userWindow->m_InputManager.InputKey(key, EInputCategory::Hold);
+			return;
+		default:
+			return;
+		}
+		
 	}
 
 	bool Window::ShouldCloseWindow()

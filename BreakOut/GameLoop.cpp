@@ -2,8 +2,8 @@
 
 #include "GL/glew.h"
 
-#include "Window.h"
-#include "BasicTimer.h"
+#include "Graphics/Window.h"
+#include "Utils/BasicTimer.h"
 
 #include "Levels/BasicLevel.h"
 
@@ -22,6 +22,8 @@ int main()
 	BasicLevel level;
 	level.Load();
 	level.Init();
+
+	GameInputManager inputManager = GameInputManager();
 
 	int frames = 0;
 	double time = 0.0f;

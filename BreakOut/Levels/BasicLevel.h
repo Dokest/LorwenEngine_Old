@@ -1,8 +1,8 @@
 #pragma once
 
-#include "BaseLevel.h"
+#include "Game/BaseLevel.h"
 
-#include "BatchSpriteRenderer.h"
+#include "Graphics/BatchSpriteRenderer.h"
 
 using namespace Lorwen;
 using namespace Graphics;
@@ -13,6 +13,7 @@ private:
 	BatchSpriteRenderer spriteRenderer;
 
 	std::vector<SpriteRenderable> m_VisibleRenderables;
+	std::vector<class SpriteRen*> m_Renderables = std::vector<class SpriteRen*>(100 * 100);
 
 public:
 	BasicLevel();

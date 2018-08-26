@@ -1,9 +1,5 @@
 #pragma once
 
-#include "BaseLevelMode.h"
-#include "BaseLevelState.h"
-
-
 namespace Lorwen {
 
 	class BaseLevel

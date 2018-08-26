@@ -19,78 +19,84 @@
     <ClInclude Include="Maths\Vec4.h">
       <Filter>Maths</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Graphics Engine</Filter>
+    <ClInclude Include="Game\Component.h">
+      <Filter>Game Objects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Graphics Engine</Filter>
+    <ClInclude Include="Graphics\BaseBuffer.h">
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Graphics Engine</Filter>
+    <ClInclude Include="Graphics\BaseRenderable.h">
+      <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
+    <ClInclude Include="Graphics\BaseRenderer.h">
+      <Filter>Graphics Engine\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\BatchSpriteRenderer.h">
+      <Filter>Graphics Engine\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\DebugOpenGL.h" />
+    <ClInclude Include="Graphics\IndexBuffer.h">
+      <Filter>Graphics Engine\Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ResourceManager.h">
       <Filter>Graphics Engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="BaseRenderer.h">
-      <Filter>Graphics Engine\Renderers</Filter>
+    <ClInclude Include="Graphics\Shader.h">
+      <Filter>Graphics Engine</Filter>
     </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>Graphics Engine\Buffers</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
-      <Filter>Graphics Engine\Buffers</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseBuffer.h">
-      <Filter>Graphics Engine\Buffers</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Graphics Engine\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseRenderable.h">
+    <ClInclude Include="Graphics\SpriteRenderable.h">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="VertexArray.h">
+    <ClInclude Include="Graphics\SpriteRenderer.h">
+      <Filter>Graphics Engine\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Texture2D.h">
+      <Filter>Graphics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VertexArray.h">
       <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderable.h">
-      <Filter>Graphics Engine\Renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBufferLayout.h">
+    <ClInclude Include="Graphics\VertexBuffer.h">
       <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="BaseLevel.h">
-      <Filter>WorldObjects\Levels</Filter>
+    <ClInclude Include="Graphics\VertexBufferLayout.h">
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="BasicTimer.h">
+    <ClInclude Include="Graphics\Window.h">
+      <Filter>Graphics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\BasicTimer.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="BaseWorldRegister.h">
-      <Filter>WorldObjects</Filter>
+    <ClInclude Include="Game\GameObjectRegister.h" />
+    <ClInclude Include="Game\GameObject.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="BaseObjectRenderer.h">
-      <Filter>WorldObjects</Filter>
+    <ClInclude Include="Game\WorldObject.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="BaseLevelState.h">
-      <Filter>WorldObjects</Filter>
+    <ClInclude Include="Graphics\SpriteRen.h">
+      <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="BaseGameInstance.h">
-      <Filter>WorldObjects</Filter>
+    <ClInclude Include="Graphics\Renderable.h">
+      <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="BaseLevelMode.h">
-      <Filter>WorldObjects</Filter>
+    <ClInclude Include="Game\GameInputManager.h" />
+    <ClInclude Include="Game\InputComponent.h">
+      <Filter>Game Objects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="BasicObjectManager.h">
-      <Filter>WorldObjects\Registers</Filter>
+    <ClInclude Include="Game\BaseLevel.h">
+      <Filter>Game Objects\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="WorldObject.h">
-      <Filter>WorldObjects</Filter>
+    <ClInclude Include="Game\InputParameters.h">
+      <Filter>Game Objects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="DebugOpenGL.h" />
-    <ClInclude Include="BatchSpriteRenderer.h">
-      <Filter>Graphics Engine\Renderers</Filter>
+    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="Game\PlayerController.h">
+      <Filter>Game Objects\WorldObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="BasePlayerController.h">
-      <Filter>WorldObjects</Filter>
+    <ClInclude Include="Alphabet.h">
+      <Filter>Game Objects\WorldObjects\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -106,41 +112,59 @@
     <ClCompile Include="Maths\Vec4.cpp">
       <Filter>Maths</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Graphics Engine</Filter>
+    <ClCompile Include="Graphics\BaseBuffer.cpp">
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>Graphics Engine</Filter>
+    <ClCompile Include="Graphics\BatchSpriteRenderer.cpp">
+      <Filter>Graphics Engine\Renderers</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Graphics Engine</Filter>
+    <ClCompile Include="Graphics\IndexBuffer.cpp">
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
+    <ClCompile Include="Graphics\ResourceManager.cpp">
       <Filter>Graphics Engine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Graphics Engine\Buffers</Filter>
+    <ClCompile Include="Graphics\Shader.cpp">
+      <Filter>Graphics Engine</Filter>
     </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Graphics Engine\Buffers</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseBuffer.cpp">
-      <Filter>Graphics Engine\Buffers</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Graphics Engine\Renderers</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderable.cpp">
+    <ClCompile Include="Graphics\SpriteRenderable.cpp">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClCompile>
-    <ClCompile Include="VertexArray.cpp">
+    <ClCompile Include="Graphics\SpriteRenderer.cpp">
+      <Filter>Graphics Engine\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Texture2D.cpp">
+      <Filter>Graphics Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VertexArray.cpp">
       <Filter>Graphics Engine\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="BasicObjectManager.cpp">
-      <Filter>WorldObjects\Registers</Filter>
+    <ClCompile Include="Graphics\VertexBuffer.cpp">
+      <Filter>Graphics Engine\Buffers</Filter>
     </ClCompile>
-    <ClCompile Include="BatchSpriteRenderer.cpp">
-      <Filter>Graphics Engine\Renderers</Filter>
+    <ClCompile Include="Graphics\Window.cpp">
+      <Filter>Graphics Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjectRegister.cpp" />
+    <ClCompile Include="Game\GameObject.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\WorldObject.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\SpriteRen.cpp">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Renderable.cpp">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameInputManager.cpp" />
+    <ClCompile Include="Game\InputComponent.cpp">
+      <Filter>Game Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="Game\PlayerController.cpp">
+      <Filter>Game Objects\WorldObjects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,17 +192,29 @@
     <Filter Include="Graphics Engine\Shaders">
       <UniqueIdentifier>{a71ad6a5-d5ab-420c-ac0f-8eec9cc51589}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WorldObjects">
+    <Filter Include="Game Objects">
       <UniqueIdentifier>{7633099d-d5df-4f45-8e86-24921e12aad4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WorldObjects\Registers">
+    <Filter Include="Game Objects\Registers">
       <UniqueIdentifier>{361ba5e2-4a3e-4034-bbb8-ba977bf70f9f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WorldObjects\Renderers">
+    <Filter Include="Game Objects\Renderers">
       <UniqueIdentifier>{4676fb0e-a7e4-41cd-9461-f2dbcf702d2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="WorldObjects\Levels">
+    <Filter Include="Game Objects\Levels">
       <UniqueIdentifier>{71dcfcab-954d-4e76-9140-108a21ca37ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\WorldObjects">
+      <UniqueIdentifier>{03c9238e-da51-4470-8003-c2eb8b889933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\WorldObjects\Player">
+      <UniqueIdentifier>{6a292a78-968f-42f2-8d66-5b1f10a1fecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Components">
+      <UniqueIdentifier>{d095d593-c291-41bb-9d69-474fc0aabd53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Input">
+      <UniqueIdentifier>{b8c6ca6b-eb14-43a7-a068-eab9df336819}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

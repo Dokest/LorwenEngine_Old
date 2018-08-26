@@ -65,8 +65,10 @@ namespace Lorwen { namespace Graphics {
 
 		void Init();
 
-		
-		void Submit(BaseRenderable* renderable) override;
+		void SubmitSprite(class SpriteRen* sprite);
+		void SubmitSprite(std::vector<class SpriteRen*>* sprites, GLenum drawType);
+
+		void Submit(BaseRenderable* renderable);
 		void Submit(SpriteRenderable& sprite);
 
 		void Init2();
@@ -74,6 +76,8 @@ namespace Lorwen { namespace Graphics {
 		void Render2();
 
 		void Render();
+
+
 
 		void Begin();
 		void End();

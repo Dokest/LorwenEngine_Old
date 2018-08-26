@@ -3,6 +3,8 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
+#include "Game/GameInputManager.h"
+
 namespace Lorwen {
 
 	class Window
@@ -10,6 +12,7 @@ namespace Lorwen {
 	private:
 		GLFWwindow * m_Window;
 		unsigned int m_Width, m_Height;
+		GameInputManager m_InputManager;
 
 		const char* m_Title;
 
@@ -18,6 +21,10 @@ namespace Lorwen {
 		~Window();
 
 		void Init(unsigned int width, unsigned int height, const char* title);
+
+	private:
+		static void InputKey_Callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 
 	public:
 		bool ShouldCloseWindow();
