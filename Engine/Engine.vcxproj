@@ -154,7 +154,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Alphabet.h" />
+    <ClInclude Include="Game\EPawn.h" />
+    <ClInclude Include="Game\KEY_Alphabet.h" />
     <ClInclude Include="Game\GameInputManager.h" />
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\WorldObject.h" />
@@ -168,8 +169,9 @@
     <ClInclude Include="Graphics\SpriteRen.h" />
     <ClInclude Include="Game\InputComponent.h" />
     <ClInclude Include="Game\InputParameters.h" />
-    <ClInclude Include="Game\PlayerController.h" />
-    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="Game\WPlayerController.h" />
+    <ClInclude Include="Game\MemoryManager.h" />
+    <ClInclude Include="Game\Object.h" />
     <ClInclude Include="Utils\BasicTimer.h" />
     <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Maths\Mat4.h" />
@@ -188,9 +190,11 @@
     <ClInclude Include="Graphics\VertexBuffer.h" />
     <ClInclude Include="Graphics\VertexBufferLayout.h" />
     <ClInclude Include="Graphics\Window.h" />
-    <ClInclude Include="Game\GameObjectRegister.h" />
+    <ClInclude Include="Game\GameObjectManager.h" />
+    <ClInclude Include="Utils\FileReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\EPawn.cpp" />
     <ClCompile Include="Game\GameInputManager.cpp" />
     <ClCompile Include="Game\GameObject.cpp" />
     <ClCompile Include="Game\WorldObject.cpp" />
@@ -210,11 +214,12 @@
     <ClCompile Include="Graphics\VertexArray.cpp" />
     <ClCompile Include="Graphics\VertexBuffer.cpp" />
     <ClCompile Include="Graphics\Window.cpp" />
-    <ClCompile Include="Game\GameObjectRegister.cpp" />
+    <ClCompile Include="Game\GameObjectManager.cpp" />
     <ClCompile Include="Graphics\Renderable.cpp" />
     <ClCompile Include="Graphics\SpriteRen.cpp" />
-    <ClCompile Include="Game\PlayerController.cpp" />
-    <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="Game\WPlayerController.cpp" />
+    <ClCompile Include="Game\MemoryManager.cpp" />
+    <ClCompile Include="Game\Object.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Basic.frag" />

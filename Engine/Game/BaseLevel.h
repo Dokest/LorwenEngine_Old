@@ -5,7 +5,7 @@ namespace Lorwen {
 	class BaseLevel
 	{
 	protected:
-
+		class WPlayerController* PlayerController = nullptr;
 
 	public:
 		virtual ~BaseLevel() {}
@@ -16,6 +16,7 @@ namespace Lorwen {
 
 		virtual void End() = 0; 
 
+		virtual void PrepareLevel() = 0;
 	};
 
 

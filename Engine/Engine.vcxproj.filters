@@ -68,7 +68,6 @@
     <ClInclude Include="Utils\BasicTimer.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObjectRegister.h" />
     <ClInclude Include="Game\GameObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -91,13 +90,21 @@
     <ClInclude Include="Game\InputParameters.h">
       <Filter>Game Objects\Components</Filter>
     </ClInclude>
-    <ClInclude Include="MemoryManager.h" />
-    <ClInclude Include="Game\PlayerController.h">
+    <ClInclude Include="Game\MemoryManager.h" />
+    <ClInclude Include="Game\KEY_Alphabet.h">
       <Filter>Game Objects\WorldObjects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Alphabet.h">
+    <ClInclude Include="Game\WPlayerController.h">
       <Filter>Game Objects\WorldObjects\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Object.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjectManager.h" />
+    <ClInclude Include="Utils\FileReader.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EPawn.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths\Mat4.cpp">
@@ -145,7 +152,6 @@
     <ClCompile Include="Graphics\Window.cpp">
       <Filter>Graphics Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObjectRegister.cpp" />
     <ClCompile Include="Game\GameObject.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
@@ -162,10 +168,15 @@
     <ClCompile Include="Game\InputComponent.cpp">
       <Filter>Game Objects\Components</Filter>
     </ClCompile>
-    <ClCompile Include="MemoryManager.cpp" />
-    <ClCompile Include="Game\PlayerController.cpp">
+    <ClCompile Include="Game\MemoryManager.cpp" />
+    <ClCompile Include="Game\WPlayerController.cpp">
       <Filter>Game Objects\WorldObjects\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Object.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjectManager.cpp" />
+    <ClCompile Include="Game\EPawn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Maths">

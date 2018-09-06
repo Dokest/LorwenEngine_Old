@@ -8,6 +8,7 @@
 
 #include <typeinfo>
 
+#include "Object.h"
 #include "GameObject.h"
 
 #include "MemoryManager.h"
@@ -52,31 +53,11 @@ namespace Lorwen {
 
 		void Remove(unsigned int objectID);
 
-		void Register(class GameObject& gameObject);
-
-//		std::map<const unsigned int, MemoryManager> m_ObjectHandlers;
-//		
-// 		template<typename T>
-// 		T* Register(const unsigned int number)
-// 		{
-// 			unsigned int classHash = typeid(T).hash_code();
-// 
-// 			if (m_ObjectHandlers.count(classHash) == NULL)
-// 			{
-// 				m_ObjectHandlers[classHash] = MemoryManager();
-// 				m_ObjectHandlers[classHash].Init(sizeof(T), number);
-// 			}
-// 
-// 			T* object = (T*)m_ObjectHandlers[classHash].Alloc();
-// 
-// 			return object;
-// 		}
-
 		template<class T>
 		static std::vector<T> m_Objects;
 		
 		template<class T>
-		T* RegisterGameObject()
+		static T* RegisterGameObjectTest()
 		{
 			if (m_Objects<T>.size() == 0)
 			{
@@ -87,24 +68,36 @@ namespace Lorwen {
 			}
 
 			m_Objects<T>.push_back(T());
-			return &m_Objects<T>[m_Objects<T>.size() - 1];
+			T* newObject = &m_Objects<T>[m_Objects<T>.size() - 1];
+			newObject->_Create();
+			return newObject;
 		}
 
-		std::vector<GameObject*> m_ObjectManager;
+		std::vector<class Object*> m_ObjectManager;
 
 		template<typename T>
-		T* RegisterGameObject(char Name)
+		static T* RegisterGameObject(const char* Name)
 		{
-// 			unsigned int i = 0;
-// 			while (m_ObjectManager.count(Name) == 1)
-// 				i++;
+			T* newObject = new T();
+			Singleton_ObjectManager->m_ObjectManager.push_back(newObject);
 
-			//const char newName = (Name + "_" + i);
+			GameObject* temp = (GameObject*)newObject;
+			temp->_Create();
 
-			T* temp = new T();
-			m_ObjectManager.push_back(temp);
+			return newObject;
+		}
 
-			return temp;
+		template<typename T>
+		static T* RegisterComponent(class GameObject* owner)
+		{
+			T* newComponent = new T();
+			newComponent->Owner = owner;
+			Singleton_ObjectManager->m_ObjectManager.push_back(newComponent);
+
+			GameObject* temp = (GameObject*)newComponent;
+			temp->_Create();
+
+			return newComponent;
 		}
 
 		void Update(float deltaTime);

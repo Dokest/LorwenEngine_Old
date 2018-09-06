@@ -1,0 +1,8 @@
+[Axis]
+"MoveUp" | W(+1.0) S(-1.0)
+"MoveRight" | D(+1.0) A(-1.0)
+"MoveUp" | XBOX_LeftAxisX(+1.0f)
+"Shoot" | XBOX_RightTrigger(+1.0f)
+
+[Actions]
+"Interact" | E Q XBOX_X

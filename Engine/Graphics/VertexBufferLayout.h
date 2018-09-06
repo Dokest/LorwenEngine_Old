@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <vector>
@@ -35,8 +36,7 @@ namespace Lorwen { namespace Graphics {
 		VertexBufferLayout()
 			: m_Stride(0) {}
 
-
-		template<typename T>
+		template<typename>
 		void Push(unsigned int count, bool bNormalize = GL_FALSE)
 		{
 			static_assert(false);
@@ -65,7 +65,6 @@ namespace Lorwen { namespace Graphics {
 
 		inline unsigned int GetStride() const { return m_Stride; }
 		inline const std::vector<VertexBufferElement>& GetElements() const { return m_Elements; }
-
 
 	};
 } }

@@ -1,17 +1,8 @@
 #include "GameObject.h"
 
-#include "GameObjectRegister.h"
+#include "GameObjectManager.h"
 
 namespace Lorwen {
 
-	GameObject::GameObject()
-	{
-		
-	}
 
-
-	GameObject::~GameObject()
-	{
-
-	}
 }

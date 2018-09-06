@@ -1,15 +1,25 @@
 #pragma once
 
-#include "Game/PlayerController.h"
+#include "Game/WPlayerController.h"
 
-class PlayerPaddle : public Lorwen::PlayerController
+using namespace Lorwen;
+
+class PlayerPaddle : public WPlayerController
 {
 public:
 	PlayerPaddle();
 	~PlayerPaddle();
 
-	void MoveRight(float Value);
+	void MoveRight(float value);
+	void MoveUp(float value);
+	void MoveLeft(float value);
+	void MoveDown(float value);
 
-	virtual void SetupInputComponent() override;
+	void Interact();
+	void DeInteract();
+
+	virtual void OnCreation() override;
+
+	virtual void SetupInputComponent(class Lorwen::InputComponent* playerInput) override;
 };
 

@@ -26,18 +26,31 @@ namespace Lorwen {
 
 	};
 
+	template<class T>
 	struct SInputListening
 	{
 		unsigned int Key;
-		std::function<void(float)> Function;
+		std::string InputName;
 
-		SInputListening()
-			{}
+	private:
+		T* Instance;
 
-		SInputListening(unsigned int key, std::function<void(float)> function)
-			: Key(key), Function(function)
+		void(T::*Function)(float);
+
+	public:
+		void CallFunction(class GameObject* instance, float Value)
+		{
+			T* objectInstance = static_cast<T*>(instance);
+			(objectInstance->*Function)(Value);
+		}
+		
+
+
+		SInputListening(const std::string inputName, T* instanceListening, void(T::*function)(float) )
+			: InputName(inputName), Instance(instanceListening), Function(function)
 		{
 
 		}
+
 	};
 }

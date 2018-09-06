@@ -9,8 +9,10 @@
 
 #include "Graphics/SpriteRen.h"
 
-#include "Game/GameObjectRegister.h"
+#include "Game/GameObjectManager.h"
 #include "Game/WorldObject.h"
+
+#include "Player/PlayerPaddle.h"
 
 BasicLevel::BasicLevel()
 {
@@ -22,6 +24,13 @@ BasicLevel::~BasicLevel()
 
 }
 
+void BasicLevel::PrepareLevel()
+{
+	// Prepare GameObjectManager to HANDLE all spawns -> Needs to be move to GAME LOOP
+
+	PlayerController = GameObjectManager::RegisterGameObject<PlayerPaddle>("Verde");
+}
+
 void BasicLevel::Load()
 {
 	//ResourceManager::LoadShader("../Engine/Shaders/Basic.vert", "../Engine/Shaders/Basic.frag", nullptr, "Basic");
@@ -30,10 +39,10 @@ void BasicLevel::Load()
 
 	spriteRenderer.Init2();
 
-	GameObjectManager gameManager;
+	
 
 	//SpriteRen* spriteTest = gameManager.Register<SpriteRen>(10);
-	SpriteRen* spriteTest = gameManager.RegisterGameObject<SpriteRen>((char)"SpriteTest");
+	SpriteRen* spriteTest = GameObjectManager::RegisterGameObject<SpriteRen>("SpriteTest");
 	spriteTest->Construct(Vec2(100.0f, 100.0f), Vec2(100.0f, 100.f));
 	spriteRenderer.SubmitSprite(spriteTest);
 }
@@ -41,6 +50,7 @@ void BasicLevel::Load()
 void BasicLevel::Init()
 {
 	srand(NULL);
+	
 
 	//sprite.GetShader()->Use();
 	//sprite.GetShader()->SetMatrix4("pr_matrix", spriteRenderer.GetProjectionMatrix());

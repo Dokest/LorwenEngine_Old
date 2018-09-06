@@ -1,13 +1,26 @@
 #pragma once
 
-#include "GameObject.h"
+#include "Object.h"
 
 namespace Lorwen {
 
-	class Component : public GameObject
+	class Component : public Object
 	{
 	public:
-		GameObject* Owner;
+		class GameObject* Owner;
+
+	private:
+		virtual void OnCreation() {}
+		virtual void OnUpdate(float deltaTime) {}
+		virtual void OnDestruction() {}
+
+		virtual void Preparation() {}
+		virtual void Construct() {}
+
+	public:
+		inline void _Create() { OnCreation(); }
+		inline void _Update(float deltaTime) { OnUpdate(deltaTime); }
+		inline void _Destroy() { OnDestruction(); }
 
 	};
 

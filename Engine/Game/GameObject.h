@@ -2,38 +2,60 @@
 
 #include <string>
 
+#include "Object.h"
+#include "Component.h"
+
+#include "GameObjectManager.h"
+#include "InputComponent.h"
+
 namespace Lorwen {
 
-	class GameObject
+	class GameObject : public Object
 	{
 	private:
-		/* Unique ID of each Game Object, 0 means it hasn't been created yet */
-		unsigned int m_GameObjectID = 0;
-		unsigned short m_GameObjectLocation = 0;
+		std::vector<Component*> m_Components;
 
 	protected:
 		bool bCanTick = false;
 
 	public:
-		GameObject();
-		~GameObject();
+		GameObject() {}
 
-	protected:
+	private:
 		virtual void OnCreation() {}
 		virtual void OnUpdate(float deltaTime) {}
 		virtual void OnDestruction() {}
 
 		virtual void Preparation() {}
-		virtual void Construct() {};
+		virtual void Construct() {}
 
 	public:
-		virtual inline void Create() { OnCreation(); }
-		virtual inline void Update(float deltaTime) { OnUpdate(deltaTime); }
-		virtual inline void Destroy() { OnDestruction(); }
+		
+		template<class T>
+		inline T* RegisterComponent(const char* name)
+		{
+			T* comp = GameObjectManager::RegisterComponent<T>(this);
+			return comp;
+		}
 
-	public:
-		inline const unsigned int GetObjectID() const { return m_GameObjectID; }
-		inline void SetObjectID(unsigned int newID) { m_GameObjectID = newID; }
+		inline void _Create()
+		{
+			OnCreation();
+		}
+		inline void _Update(float deltaTime) 
+		{
+			OnUpdate(deltaTime);
+
+			for (Component* comp : m_Components)
+				comp->_Update(deltaTime);
+		}
+		inline void _Destroy() 
+		{
+			OnDestruction();
+
+			for (Component* comp : m_Components)
+				comp->_Destroy();
+		}
 
 	};
 }

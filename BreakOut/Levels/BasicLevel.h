@@ -19,11 +19,13 @@ public:
 	BasicLevel();
 	~BasicLevel();
 
-	virtual void Load();
-	
-	virtual void Init();
+	virtual void PrepareLevel() override;
 
-	virtual void End();
+	virtual void Load() override;
+	
+	virtual void Init() override;
+
+	virtual void End() override;
 	
 	void Render();
 };

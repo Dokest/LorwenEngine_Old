@@ -1,4 +1,4 @@
-#include "GameObjectRegister.h"
+#include "GameObjectManager.h"
 
 #include <typeinfo>
 
@@ -16,10 +16,6 @@ namespace Lorwen {
 
 	}
 
-	void GameObjectManager::Register(class GameObject& gameObject)
-	{
-
-	}
 
 
 
@@ -29,7 +25,7 @@ namespace Lorwen {
 // 		{
 // 			for (GameObject& object : objectInstances)
 // 				object.Update(deltaTime);
-// 		}
+//  		}
 	}
 
 }

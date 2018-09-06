@@ -4,6 +4,8 @@
 
 #include "Maths/Maths.h"
 
+#include <vector>
+
 namespace Lorwen {
 
 	using namespace Maths;
@@ -37,19 +39,28 @@ namespace Lorwen {
 
 	class WorldObject : public GameObject
 	{
+	private:
+		std::vector<class Component*> m_pComponents;
+
 	public:
 		STransform Transform;
+
 
 		WorldObject();
 
 	public:
+		inline std::vector<class Component*>& GetComponents() { return m_pComponents; }
 
 
+	protected:
+		virtual void OnCreation() {}
+		virtual void OnUpdate(float deltaTime) {}
+		virtual void OnDestruction() {}
 
 	private:
-		virtual inline void Create() { OnCreation(); }
-		virtual inline void Update(float deltaTime) { OnUpdate(deltaTime); }
-		virtual inline void Destroy() { OnDestruction(); }
+		inline void _Create() { WorldObject::_Create(); }
+ 		inline void _Update(float deltaTime) { WorldObject::OnUpdate(deltaTime); }
+ 		inline void _Destroy() { WorldObject::OnDestruction(); }
 		
 	};
 
