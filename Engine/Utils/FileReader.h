@@ -4,28 +4,27 @@
 #include <sstream>
 #include <string>
 
-namespace Lorwen {
 
-	class FileReader
+class FileReader
+{
+public:
+	static std::string ReadFile(const char* filePath)
 	{
-	public:
-		static std::string ReadFile(const char* filePath)
-		{
-			std::ifstream inputFile(filePath);
-			std::string resultString;
+		std::ifstream inputFile(filePath);
+		std::string resultString;
 
-			for (std::string line; getline(inputFile, line); )
-				resultString += line + "\n";
+		for (std::string line; getline(inputFile, line); )
+			resultString += line + "\n";
 
-			return resultString;
-		}
+		return resultString;
+	}
 
-		static std::ifstream GetFileStream(const char* filePath)
-		{
-			return std::ifstream(filePath);
-		}
+	static std::ifstream GetFileStream(const char* filePath)
+	{
+		return std::ifstream(filePath);
+	}
 
 
-	};
+};
 
-}
+

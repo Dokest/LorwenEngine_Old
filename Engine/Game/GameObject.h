@@ -8,54 +8,53 @@
 #include "GameObjectManager.h"
 #include "InputComponent.h"
 
-namespace Lorwen {
 
-	class GameObject : public Object
+class GameObject : public Object
+{
+private:
+	std::vector<Component*> m_Components;
+
+protected:
+	bool bCanTick = false;
+
+public:
+	GameObject() {}
+
+private:
+	virtual void OnCreation() {}
+	virtual void OnUpdate(float deltaTime) {}
+	virtual void OnDestruction() {}
+
+	virtual void Preparation() {}
+	virtual void Construct() {}
+
+public:
+	
+	template<class T>
+	inline T* RegisterComponent(const char* name)
 	{
-	private:
-		std::vector<Component*> m_Components;
+		T* comp = GameObjectManager::RegisterComponent<T>(this);
+		return comp;
+	}
 
-	protected:
-		bool bCanTick = false;
+	inline void _Create()
+	{
+		OnCreation();
+	}
+	inline void _Update(float deltaTime) 
+	{
+		OnUpdate(deltaTime);
 
-	public:
-		GameObject() {}
+		for (Component* comp : m_Components)
+			comp->_Update(deltaTime);
+	}
+	inline void _Destroy() 
+	{
+		OnDestruction();
 
-	private:
-		virtual void OnCreation() {}
-		virtual void OnUpdate(float deltaTime) {}
-		virtual void OnDestruction() {}
+		for (Component* comp : m_Components)
+			comp->_Destroy();
+	}
 
-		virtual void Preparation() {}
-		virtual void Construct() {}
+};
 
-	public:
-		
-		template<class T>
-		inline T* RegisterComponent(const char* name)
-		{
-			T* comp = GameObjectManager::RegisterComponent<T>(this);
-			return comp;
-		}
-
-		inline void _Create()
-		{
-			OnCreation();
-		}
-		inline void _Update(float deltaTime) 
-		{
-			OnUpdate(deltaTime);
-
-			for (Component* comp : m_Components)
-				comp->_Update(deltaTime);
-		}
-		inline void _Destroy() 
-		{
-			OnDestruction();
-
-			for (Component* comp : m_Components)
-				comp->_Destroy();
-		}
-
-	};
-}

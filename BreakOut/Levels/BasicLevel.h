@@ -4,16 +4,21 @@
 
 #include "Graphics/BatchSpriteRenderer.h"
 
-using namespace Lorwen;
-using namespace Graphics;
+#include "Graphics/SpriteRenderer.h"
+
+#include <vector>
 
 class BasicLevel : public BaseLevel
 {
+public:
+
 private:
 	BatchSpriteRenderer spriteRenderer;
+	SpriteRenderer renderer;
 
-	std::vector<SpriteRenderable> m_VisibleRenderables;
-	std::vector<class SpriteRen*> m_Renderables = std::vector<class SpriteRen*>(100 * 100);
+	std::vector<class LSpriteComponent*> m_SubmissionQueue;
+
+	//std::vector<class SpriteRen*> m_Renderables = std::vector<class SpriteRen*>(100 * 100);
 
 public:
 	BasicLevel();
@@ -26,6 +31,10 @@ public:
 	virtual void Init() override;
 
 	virtual void End() override;
+
+	virtual void Submit(LRenderableComponent* renComp) override;
+
+	virtual void SubmitNextFrame(LRenderableComponent* renComp);
 	
 	void Render();
 };

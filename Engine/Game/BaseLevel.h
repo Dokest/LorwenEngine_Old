@@ -1,23 +1,27 @@
 #pragma once
 
-namespace Lorwen {
+class BaseLevel
+{
+public:
+	static BaseLevel* CurrentLevel;
 
-	class BaseLevel
-	{
-	protected:
-		class WPlayerController* PlayerController = nullptr;
+protected:
+	class WPlayerController* PlayerController = nullptr;
 
-	public:
-		virtual ~BaseLevel() {}
+	class LGameMode* GameMode;
 
-		virtual void Load() = 0;
+public:
+	virtual ~BaseLevel() {}
 
-		virtual void Init() = 0;
+	virtual void Load() = 0;
 
-		virtual void End() = 0; 
+	virtual void Init() = 0;
 
-		virtual void PrepareLevel() = 0;
-	};
+	virtual void End() = 0; 
 
+	virtual void PrepareLevel() = 0;
 
-}
+	virtual void Submit(class LRenderableComponent* renComp) = 0;
+
+	virtual void SubmitNextFrame(LRenderableComponent* renComp) {}
+};

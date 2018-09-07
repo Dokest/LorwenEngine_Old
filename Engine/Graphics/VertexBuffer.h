@@ -2,21 +2,19 @@
 
 #include "BaseBuffer.h"
 
-namespace Lorwen { namespace Graphics {
+class VertexBuffer : public BaseBuffer
+{
+private:
 
-	class VertexBuffer : public BaseBuffer
-	{
-	private:
+public:
+	VertexBuffer(unsigned int bufferSize, GLenum drawType);
+	VertexBuffer() {}
 
-	public:
-		VertexBuffer();
-		VertexBuffer(const void* data, unsigned int size);
-		VertexBuffer(unsigned int bufferSize, GLenum drawType);
-		~VertexBuffer();
+	void Bind() const;
+	void Unbind() const;
 
-		void Bind() const;
-		void Unbind() const;
+	virtual void Delete() const;
+	void Generate(const void* data, unsigned int size);
 
-		void BufferData(int bufferSize, const void* data, GLenum drawType);
-	};
-} }
+	void BufferData(int bufferSize, const void* data, GLenum drawType);
+};

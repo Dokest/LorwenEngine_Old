@@ -1,84 +1,122 @@
 #include "SpriteRenderer.h"
 
 #include <typeinfo>
+#include <array>
 
 #include "VertexArray.h"
 
-namespace Lorwen { namespace Graphics {
+#include "LSpriteComponent.h"
 
-	SpriteRenderer::SpriteRenderer()
+#include "SpriteMaterialManager.h"
+
+
+SpriteRenderer::SpriteRenderer()
+{
+
+
+}
+
+void SpriteRenderer::Render()
+{
+
+	for (SInstanciatedSprite& instances : m_Sprites)
 	{
+		//ShowOpenGLErrors();
+		instances.Material->pShader->Use();
+		instances.Material->pShader->SetMatrix4("pr_matrix", m_ProjectionMatrix);
+		//ShowOpenGLErrors();
+		std::array<float, 500> buffer;
+		unsigned int i = 0;
 
-
-	}
-
-	SpriteRenderer::~SpriteRenderer()
-	{
-
-	}
-
-	void SpriteRenderer::Render()
-	{
-		m_IBO->Bind();
-		m_VAO->Bind();
-
-		m_Sprites[0].UseShader();
-		int i = 0;
-		for (SpriteRenderable& sprite : m_Sprites)
+		for (LSpriteComponent* sprite : instances.Renderables)
 		{
+			Vec2 loc = sprite->GetLocation();
+			Vec2 size = sprite->GetSize();
+			Vec4 tint = sprite->GetTint();
 
-			sprite.GetShader()->SetMatrix4("mvp", m_ProjectionMatrix *  sprite.GetTransform());
-			sprite.GetShader()->SetVector4f("spriteColor", sprite.GetTint());
+			buffer[i] = loc.x - (size.x / 2);
+			buffer[i + 1] = loc.y + (size.y / 2);
+			buffer[i + 2] = tint.x;
+			buffer[i + 3] = tint.y;
+			buffer[i + 4] = tint.z;
+			buffer[i + 5] = tint.w;
 
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-			i++;
+			i += 6;
+
+			buffer[i] = loc.x + (size.x / 2);
+			buffer[i + 1] = loc.y + (size.y / 2);
+			buffer[i + 2] = tint.x;
+			buffer[i + 3] = tint.y;
+			buffer[i + 4] = tint.z;
+			buffer[i + 5] = tint.w;
+
+			i += 6;
+
+			buffer[i] = loc.x + (size.x / 2);
+			buffer[i + 1] = loc.y - (size.y / 2);
+			buffer[i + 2] = tint.x;
+			buffer[i + 3] = tint.y;
+			buffer[i + 4] = tint.z;
+			buffer[i + 5] = tint.w;
+
+			i += 6;
+
+			buffer[i] = loc.x - (size.x / 2);
+			buffer[i + 1] = loc.y - (size.y / 2);
+			buffer[i + 2] = tint.x;
+			buffer[i + 3] = tint.y;
+			buffer[i + 4] = tint.z;
+			buffer[i + 5] = tint.w;
+
+			i += 6;
 		}
 
+		instances.Material->pVBO->BufferData(sizeof(buffer), &buffer[0], GL_STATIC_DRAW);
+
+		instances.Material->pIBO->Bind();
+		instances.Material->pVAO->Bind();
+
+		glDrawElements(GL_TRIANGLES, i / 4, GL_UNSIGNED_INT, NULL);
 	}
+}
 
-	void SpriteRenderer::Submit(BaseRenderable* renderable)
+
+void SpriteRenderer::Submit(unsigned int hspriteName, LSpriteComponent* sprite)
+{
+	for (SInstanciatedSprite& instancedSprite : m_Sprites)
 	{
-		VertexBufferLayout layout;
-		layout.Push<float>(2);
-		layout.Push<float>(4);
-
-		SpriteRenderable* sprite = static_cast<SpriteRenderable*>(renderable);
-		if (sprite != nullptr)
+		if (instancedSprite.hSpriteName == hspriteName)
 		{
-			m_Sprites.push_back(*sprite);
+			instancedSprite.Renderables.push_back(sprite);
+
+			return; // When the new Sprite has been added, function ended.
 		}
-		else
-			printf("Tried to submit something into SpriteRenderer that was NOT a SpriteRenderable\n");
-
-		printf("Submitted!\n");
 	}
 
-	void SpriteRenderer::Init()
-	{
-		float positions[] = {
-			-0.5f, -0.5f,
-			 0.5f, -0.5f,
-			 0.5f,  0.5f,
-			-0.5f,  0.5f
-		};
+	// If the sprite hasn't been added yet, we need to create a new instance for it
+	SInstanciatedSprite iSprite;
+	iSprite.hSpriteName = hspriteName;
+	iSprite.Material = &SpriteMaterialManager::GetMaterial(sprite->GetMaterialID());
+	iSprite.Renderables.push_back(sprite);
 
-		m_VBO = new VertexBuffer(positions, 4 * 2 * sizeof(float));
-		m_VAO = new VertexArray;
+	VertexBufferLayout* layout = new VertexBufferLayout();
+	layout->Push<float>(2);
+	layout->Push<float>(4, true);
 
+	iSprite.Material->pVAO->AddBuffer(*iSprite.Material->pVBO, *layout);
 
-		VertexBufferLayout layout;
-		layout.Push<float>(2);
-		m_VAO->AddBuffer(*m_VBO, layout);
+	m_Sprites.push_back(iSprite);
+}
 
-		unsigned int indices[] =
-		{
-			0, 1, 2,
-			2, 3, 0
-		};
+void SpriteRenderer::Submit(const char* spriteName, class LSpriteComponent* sprite)
+{
+	unsigned int hspriteName = m_Hasher(spriteName);
 
-		m_IBO = new IndexBuffer(indices, 6);
+	Submit(hspriteName, sprite);
+}
 
-		m_ProjectionMatrix = Maths::Mat4::Orthographic(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
-	}
+void SpriteRenderer::Init()
+{
+	m_ProjectionMatrix = Maths::Mat4::Orthographic(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
+}
 
-} }

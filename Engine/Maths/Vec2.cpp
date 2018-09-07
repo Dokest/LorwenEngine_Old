@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace Lorwen { namespace Maths {
+namespace Maths {
 
 	Vec2::Vec2()
 	{
@@ -170,7 +170,5 @@ namespace Lorwen { namespace Maths {
 	}
 
 
-
-
 	//END
-} }
+}

@@ -1,6 +1,6 @@
 [Axis]
 "MoveUp" | W(+1.0) S(-1.0)
-"MoveRight" | D(+1.0) A(-1.0)
+"MoveRight" | D(+1.0) A(-1.0) XBOX_Dpad_Right(+1.0f) XBOX_Dpad_Left(-1.0f)
 "MoveUp" | XBOX_LeftAxisX(+1.0f)
 "Shoot" | XBOX_RightTrigger(+1.0f)
 

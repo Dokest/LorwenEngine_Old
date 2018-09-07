@@ -168,10 +168,11 @@
     <ClInclude Include="Graphics\Renderable.h" />
     <ClInclude Include="Graphics\SpriteRen.h" />
     <ClInclude Include="Game\InputComponent.h" />
-    <ClInclude Include="Game\InputParameters.h" />
     <ClInclude Include="Game\WPlayerController.h" />
     <ClInclude Include="Game\MemoryManager.h" />
     <ClInclude Include="Game\Object.h" />
+    <ClInclude Include="Game\LGameMode.h" />
+    <ClInclude Include="Graphics\SpriteMaterialManager.h" />
     <ClInclude Include="Utils\BasicTimer.h" />
     <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Maths\Mat4.h" />
@@ -180,10 +181,10 @@
     <ClInclude Include="Maths\Vec2.h" />
     <ClInclude Include="Maths\Vec3.h" />
     <ClInclude Include="Maths\Vec4.h" />
-    <ClInclude Include="Graphics\BaseRenderable.h" />
+    <ClInclude Include="Graphics\LRenderableComponent.h" />
     <ClInclude Include="Graphics\ResourceManager.h" />
     <ClInclude Include="Graphics\Shader.h" />
-    <ClInclude Include="Graphics\SpriteRenderable.h" />
+    <ClInclude Include="Graphics\LSpriteComponent.h" />
     <ClInclude Include="Graphics\SpriteRenderer.h" />
     <ClInclude Include="Graphics\Texture2D.h" />
     <ClInclude Include="Graphics\VertexArray.h" />
@@ -194,21 +195,23 @@
     <ClInclude Include="Utils\FileReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\BaseLevel.cpp" />
     <ClCompile Include="Game\EPawn.cpp" />
     <ClCompile Include="Game\GameInputManager.cpp" />
-    <ClCompile Include="Game\GameObject.cpp" />
     <ClCompile Include="Game\WorldObject.cpp" />
     <ClCompile Include="Graphics\BaseBuffer.cpp" />
     <ClCompile Include="Graphics\BatchSpriteRenderer.cpp" />
     <ClCompile Include="Graphics\IndexBuffer.cpp" />
     <ClCompile Include="Game\InputComponent.cpp" />
+    <ClCompile Include="Game\LGameMode.cpp" />
+    <ClCompile Include="Graphics\SpriteMaterialManager.cpp" />
     <ClCompile Include="Maths\Mat4.cpp" />
     <ClCompile Include="Maths\Vec2.cpp" />
     <ClCompile Include="Maths\Vec3.cpp" />
     <ClCompile Include="Maths\Vec4.cpp" />
     <ClCompile Include="Graphics\ResourceManager.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
-    <ClCompile Include="Graphics\SpriteRenderable.cpp" />
+    <ClCompile Include="Graphics\LSpriteComponent.cpp" />
     <ClCompile Include="Graphics\SpriteRenderer.cpp" />
     <ClCompile Include="Graphics\Texture2D.cpp" />
     <ClCompile Include="Graphics\VertexArray.cpp" />

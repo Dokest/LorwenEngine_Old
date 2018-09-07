@@ -9,22 +9,23 @@
 #include "Game/GameObjectManager.h"
 #include "Game/GameInputManager.h"
 
-#define LORWEN_SHOW_FPS 0
-
-using namespace Lorwen;
-//using namespace Graphics;
+#define LORWEN_SHOW_FPS 1
 
 int main()
 {
+	/* Start Managers */
 	GameObjectManager objectManager = GameObjectManager();
+
 	GameInputManager inputManager = GameInputManager();
 	inputManager.Init();
 
 	Window gameWindow;
 	gameWindow.Init(800, 600, "Lorwen Engine Prototype - Breakout", &inputManager);
-	BasicTimer timer;
 
-	/* Start Managers */
+	
+	ResourceManager resourceManager;
+
+	BasicTimer timer;
 
 	/* Start Level */
 	BasicLevel level;
@@ -48,8 +49,10 @@ int main()
 		gameWindow.PollEvents();
 		gameWindow.CheckControllerState();
 
+		level.Submit(nullptr);
 		level.Render();
 
+		objectManager.Update(timer.GetTime());
 
 #if LORWEN_SHOW_FPS
 		frames = timer.GetFrames();

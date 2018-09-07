@@ -138,6 +138,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Levels\LGM_Breakout.cpp" />
+    <ClCompile Include="Player\EPlayerPawn.cpp" />
     <ClCompile Include="Levels\BasicLevel.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="Player\PlayerPaddle.cpp" />
@@ -148,6 +150,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Levels\LGM_Breakout.h" />
+    <ClInclude Include="Player\EPlayerPawn.h" />
     <ClInclude Include="Levels\BasicLevel.h" />
     <ClInclude Include="Player\PlayerPaddle.h" />
   </ItemGroup>

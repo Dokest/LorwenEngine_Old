@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace Lorwen { namespace Maths {
+namespace Maths {
 
 	struct Vec4 
 	{
@@ -35,10 +35,4 @@ namespace Lorwen { namespace Maths {
 
 	};
 
-
-
-
-
-
-
-} }
+}

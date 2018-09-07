@@ -1,7 +1,7 @@
 #include "Vec4.h"
 
 
-namespace Lorwen { namespace Maths {
+namespace Maths {
 
 	Vec4::Vec4(const float & x, const float & y, const float& z, const float& w)
 	{
@@ -106,8 +106,5 @@ namespace Lorwen { namespace Maths {
 		return stream << "Vec4: (" << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << ")";
 	}
 
-
-
-
 	//END
-} }
+}

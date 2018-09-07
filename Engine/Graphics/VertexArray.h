@@ -5,21 +5,19 @@
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 
-namespace Lorwen { namespace Graphics {
+class VertexArray : public BaseBuffer
+{
+public:
+	VertexArray();
+	VertexArray(const VertexArray& copy);
+	~VertexArray();
 
-	class VertexArray : public BaseBuffer
-	{
-	private:
+	void Generate();
+	virtual void Delete() const;
 
+	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
 
-	public:
-		VertexArray();
-		~VertexArray();
-
-		void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
-
-		void Bind() const;
-		void Unbind() const;
-	};
-} }
+	void Bind() const;
+	void Unbind() const;
+};
 

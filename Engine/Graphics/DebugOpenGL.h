@@ -4,7 +4,6 @@
 #include <string>
 
 
-namespace Lorwen {
 
 #define CheckOpenGLError() _CheckGLError(__FILE__, __LINE__);
 
@@ -63,4 +62,3 @@ void _CheckGLError(const char* file, int line)
 	return;
 }
 
-}

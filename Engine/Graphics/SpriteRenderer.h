@@ -2,34 +2,39 @@
 
 #include "BaseRenderer.h"
 
+#include "LRenderableComponent.h"
+
 #include "VertexBuffer.h"
-#include "IndexBuffer.h"
 #include "VertexArray.h"
 
-#include "SpriteRenderable.h" 
+#include "SpriteMaterialManager.h"
 
 #include <vector>
 
-namespace Lorwen { namespace Graphics {
 
-	class SpriteRenderer : public BaseRenderer
-	{
-	private:
-		std::vector<SpriteRenderable> m_Sprites;
+struct SInstanciatedSprite
+{
+	unsigned int hSpriteName;
+	SpriteMaterial* Material;
+	std::vector<class LSpriteComponent*> Renderables;
+};
 
-		IndexBuffer* m_IBO;
-		VertexArray* m_VAO;
-		VertexBuffer* m_VBO;
 
-	public:
-		SpriteRenderer();
-		~SpriteRenderer();
+class SpriteRenderer : public BaseRenderer
+{
+private:
+	std::vector<SInstanciatedSprite> m_Sprites;
+	std::hash<std::string> m_Hasher;
 
-		virtual void Render();
+public:
+	SpriteRenderer();
 
-		virtual void Submit(BaseRenderable* renderable);
+public:
+	virtual void Render();
 
-		void Init();
-	};
-} }
+	void Submit(unsigned int hspriteName, class LSpriteComponent* sprite);
+	void Submit(const char* spriteName, class LSpriteComponent* sprite);
+
+	void Init();
+};
 

@@ -1,10 +1,8 @@
 #include "WorldObject.h"
 
-namespace Lorwen {
 
-	WorldObject::WorldObject()
-	{
-	
-	}
+WorldObject::WorldObject()
+{
 
 }
+

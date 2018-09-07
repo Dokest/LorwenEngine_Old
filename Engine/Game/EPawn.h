@@ -2,8 +2,6 @@
 
 #include "WorldObject.h"
 
-using namespace Lorwen;
-
 class EPawn : public WorldObject
 {
 private:
@@ -19,8 +17,15 @@ public:
 	inline const class WPlayerController* GetPlayerController() const { return m_PlayerController; } 
 
 	void Possess(class WPlayerController* playerController);
+	void _Unposses();
+
 protected:
 	virtual void OnPossess();
 
+	/**
+	 *  Input
+	 */
+
+	virtual void SetupInputComponent(class InputComponent* inputComponent);
 };
 

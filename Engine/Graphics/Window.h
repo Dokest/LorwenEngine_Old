@@ -6,104 +6,103 @@
 #include <array>
 #include <map>
 
-namespace Lorwen {
 
-	enum EControllerBrand
+enum EControllerBrand
+{
+	XboxOne,
+	Playstation4
+};
+
+struct Button
+{
+	const char* Name;
+	bool State;
+
+	Button() { }
+	Button(const char* name, unsigned char state)
+		: Name(name), State(state) { }
+};
+
+template<EControllerBrand>
+struct SControllers;
+
+template<>
+struct SControllers<XboxOne>
+{
+	unsigned int ID;
+	char Name;
+	EControllerBrand Brand;
+
+	bool bInUse = false;
+
+	std::array<Button, 14> PressedButtons =
 	{
-		XboxOne,
-		Playstation4
+		Button("XBOX_A", 0),
+		Button("XBOX_B", 0),
+		Button("XBOX_X", 0),
+		Button("XBOX_Y", 0),
+		Button("XBOX_LB", 0),
+		Button("XBOX_RB", 0),
+		Button("XBOX_Select", 0),
+		Button("XBOX_Start", 0),
+		Button("XBOX_LTClick", 0),
+		Button("XBOX_RTClick", 0),
+		Button("XBOX_Dpad_Up", 0),
+		Button("XBOX_Dpad_Right", 0),
+		Button("XBOX_Dpad_Down", 0),
+		Button("XBOX_Dpad_Left", 0)
 	};
 
-	struct Button
-	{
-		const char* Name;
-		bool State;
+	SControllers() 
+		:Name(*"None") { }
 
-		Button() { }
-		Button(const char* name, unsigned char state)
-			: Name(name), State(state) { }
-	};
+	SControllers(const char* name, EControllerBrand brand)
+		: Name(*name), Brand(brand) { }
+};
 
-	template<EControllerBrand>
-	struct SControllers;
+class Window
+{
+private:
+	GLFWwindow * m_pWindow;
+	unsigned int m_Width, m_Height;
+	class GameInputManager* m_pInputManager;
 
-	template<>
-	struct SControllers<XboxOne>
-	{
-		unsigned int ID;
-		char Name;
-		EControllerBrand Brand;
+	const char* m_Title;
 
-		bool bInUse = false;
+public:
+	Window();
+	~Window();
 
-		std::array<Button, 14> PressedButtons =
-		{
-			Button("XBOX_A", 0),
-			Button("XBOX_B", 0),
-			Button("XBOX_X", 0),
-			Button("XBOX_Y", 0),
-			Button("XBOX_LB", 0),
-			Button("XBOX_RB", 0),
-			Button("XBOX_Select", 0),
-			Button("XBOX_Start", 0),
-			Button("XBOX_LTClick", 0),
-			Button("XBOX_RTClick", 0),
-			Button("XBOX_Dpad_Up", 0),
-			Button("XBOX_Dpad_Right", 0),
-			Button("XBOX_Dpad_Down", 0),
-			Button("XBOX_Dpad_Left", 0)
-		};
+	void Init(unsigned int width, unsigned int height, const char* title, class GameInputManager* inputManager);
 
-		SControllers() 
-			:Name(*"None") { }
+	void CheckControllerState();
 
-		SControllers(const char* name, EControllerBrand brand)
-			: Name(*name), Brand(brand) { }
-	};
+private:
+	static void InputKey_Callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void ControllerButton_Callback(int joy, int event);
 
-	class Window
-	{
-	private:
-		GLFWwindow * m_pWindow;
-		unsigned int m_Width, m_Height;
-		class GameInputManager* m_pInputManager;
+	void CheckXBoxController(SControllers<XboxOne>& controller);
 
-		const char* m_Title;
+	void DetectConnectedControllers();
+	std::array<char, 50> m_Pressed;
 
-	public:
-		Window();
-		~Window();
+	static void AddController(int joy);
 
-		void Init(unsigned int width, unsigned int height, const char* title, class GameInputManager* inputManager);
+	static std::array<SControllers<XboxOne>, 4> m_XBoxControllers;
 
-		void CheckControllerState();
+public:
+	bool ShouldCloseWindow();
 
-	private:
-		static void InputKey_Callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-		static void ControllerButton_Callback(int joy, int event);
+	void Clear(GLbitfield mask);
 
-		void CheckXBoxController(SControllers<XboxOne>& controller);
+	void SwapBuffers();
 
-		void DetectConnectedControllers();
-		std::array<char, 50> m_Pressed;
+	void PollEvents();
 
-		static void AddController(int joy);
+	void SetVSync(bool bSync);
 
-		static std::array<SControllers<XboxOne>, 4> m_XBoxControllers;
+	inline double GetTime() const { return glfwGetTime(); }
 
-	public:
-		bool ShouldCloseWindow();
+	inline GLFWwindow* GetWindowPtr() const { return m_pWindow; }
+};
 
-		void Clear(GLbitfield mask);
-
-		void SwapBuffers();
-
-		void PollEvents();
-
-		void SetVSync(bool bSync);
-
-		inline double GetTime() const { return glfwGetTime(); }
-
-		inline GLFWwindow* GetWindowPtr() const { return m_pWindow; }
-	};
-}

@@ -5,9 +5,3 @@
 #include "Utils/FileReader.h"
 
 #include <iostream>
-
-namespace Lorwen {
-
-
-
-}

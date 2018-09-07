@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Maths_Func.h"
+#include "Vec2.h"
 #include "Vec3.h"
 #include "Vec4.h"
 
-namespace Lorwen { namespace Maths {
+namespace Maths {
 
 	struct Mat4
 	{
@@ -23,6 +24,10 @@ namespace Lorwen { namespace Maths {
 		Mat4& Multiply(const Mat4& other);
 		friend Mat4 operator*(Mat4 left, const Mat4& right);
 		Mat4& operator*=(const Mat4& other);
+
+		/* Vec2 */
+		Vec2 Multiply(const Vec2& other) const;
+		friend Vec2 operator*(const Mat4& left, const Vec2& right);
 
 		/* Vec3 */
 		Vec3 Multiply(const Vec3& other) const;
@@ -45,4 +50,4 @@ namespace Lorwen { namespace Maths {
 
 	};
 
-} }
+}

@@ -25,9 +25,6 @@
     <ClInclude Include="Graphics\BaseBuffer.h">
       <Filter>Graphics Engine\Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\BaseRenderable.h">
-      <Filter>Graphics Engine\Renderables</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\BaseRenderer.h">
       <Filter>Graphics Engine\Renderers</Filter>
     </ClInclude>
@@ -43,9 +40,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\Shader.h">
       <Filter>Graphics Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\SpriteRenderable.h">
-      <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\SpriteRenderer.h">
       <Filter>Graphics Engine\Renderers</Filter>
@@ -87,9 +81,6 @@
     <ClInclude Include="Game\BaseLevel.h">
       <Filter>Game Objects\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="Game\InputParameters.h">
-      <Filter>Game Objects\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Game\MemoryManager.h" />
     <ClInclude Include="Game\KEY_Alphabet.h">
       <Filter>Game Objects\WorldObjects\Player</Filter>
@@ -105,6 +96,16 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Game\EPawn.h" />
+    <ClInclude Include="Game\LGameMode.h" />
+    <ClInclude Include="Graphics\SpriteMaterialManager.h">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\LRenderableComponent.h">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\LSpriteComponent.h">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths\Mat4.cpp">
@@ -134,9 +135,6 @@
     <ClCompile Include="Graphics\Shader.cpp">
       <Filter>Graphics Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\SpriteRenderable.cpp">
-      <Filter>Graphics Engine\Renderables</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\SpriteRenderer.cpp">
       <Filter>Graphics Engine\Renderers</Filter>
     </ClCompile>
@@ -151,9 +149,6 @@
     </ClCompile>
     <ClCompile Include="Graphics\Window.cpp">
       <Filter>Graphics Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject.cpp">
-      <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="Game\WorldObject.cpp">
       <Filter>Game Objects</Filter>
@@ -177,6 +172,14 @@
     </ClCompile>
     <ClCompile Include="Game\GameObjectManager.cpp" />
     <ClCompile Include="Game\EPawn.cpp" />
+    <ClCompile Include="Game\LGameMode.cpp" />
+    <ClCompile Include="Graphics\SpriteMaterialManager.cpp" />
+    <ClCompile Include="Graphics\LSpriteComponent.cpp">
+      <Filter>Graphics Engine\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\BaseLevel.cpp">
+      <Filter>Game Objects\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Maths">
@@ -196,9 +199,6 @@
     </Filter>
     <Filter Include="Graphics Engine\Buffers">
       <UniqueIdentifier>{b92ec809-3461-492f-8282-243647103eae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graphics Engine\Renderables">
-      <UniqueIdentifier>{1f585b47-640d-431c-96be-bbcee18f89f6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Graphics Engine\Shaders">
       <UniqueIdentifier>{a71ad6a5-d5ab-420c-ac0f-8eec9cc51589}</UniqueIdentifier>
@@ -226,6 +226,9 @@
     </Filter>
     <Filter Include="Game Objects\Input">
       <UniqueIdentifier>{b8c6ca6b-eb14-43a7-a068-eab9df336819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics Engine\Renderables">
+      <UniqueIdentifier>{1f585b47-640d-431c-96be-bbcee18f89f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

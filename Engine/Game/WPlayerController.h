@@ -2,26 +2,28 @@
 
 #include "WorldObject.h"
 
-namespace Lorwen {
 
-	class WPlayerController : public WorldObject // Needs to change to RENDERABLE -> Needs to change to ACTOR
-	{
-	private:
-		unsigned char m_ControllerID;
-		class EPawn* m_PossessPawn;
+class WPlayerController : public WorldObject // Needs to change to RENDERABLE -> Needs to change to ACTOR
+{
+private:
+	unsigned char m_ControllerID;
+	class EPawn* m_PossessPawn;
 
-	public:
+	class InputComponent* m_InputComponent;
+public:
 
-		virtual void OnCreation() override;
+	virtual void OnCreation() override;
 
-		/**
-		 *  INPUT HANDELING
-		 */
+	/**
+	 *  INPUT HANDELING
+	 */
 
-	public:
-		virtual void SetupInputComponent(class InputComponent* playerInput);
+public:
+	virtual void SetupInputComponent(class InputComponent* playerInput);
 
-		void PossessPawn(class EPawn* pawn);
-	};
-}
+	void PossessPawn(class EPawn* pawn);
+
+	class InputComponent* GetInputComponent() const { return m_InputComponent; }
+};
+
 

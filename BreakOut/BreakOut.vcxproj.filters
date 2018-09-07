@@ -24,12 +24,24 @@
     <ClCompile Include="Player\PlayerPaddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Player\EPlayerPawn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Levels\LGM_Breakout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Levels\BasicLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player\PlayerPaddle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\EPlayerPawn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Levels\LGM_Breakout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

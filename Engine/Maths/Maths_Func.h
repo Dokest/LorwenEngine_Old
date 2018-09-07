@@ -4,7 +4,7 @@
 #include <math.h>
 #include <algorithm>
 
-namespace Lorwen { namespace Maths {
+namespace Maths {
 
 	inline float toRadians(float degrees)
 	{
@@ -16,4 +16,4 @@ namespace Lorwen { namespace Maths {
 		return std::max(min, std::min(max, value));
 	}
 
-} }
+}

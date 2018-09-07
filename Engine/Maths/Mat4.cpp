@@ -1,6 +1,6 @@
 #include "Mat4.h"
 
-namespace Lorwen { namespace Maths {
+namespace Maths {
 
 	Mat4::Mat4()
 	{
@@ -55,7 +55,7 @@ namespace Lorwen { namespace Maths {
 		return Multiply(other);
 	}
 
-	Lorwen::Maths::Mat4& Mat4::Invert()
+	Maths::Mat4& Mat4::Invert()
 	{
 		float temp[16];
 
@@ -192,6 +192,19 @@ namespace Lorwen { namespace Maths {
 		return *this;
 	}
 
+	Vec2 Mat4::Multiply(const Vec2& other) const
+	{
+		return Vec2(
+			Columns[0].x * other.x + Columns[1].x * other.y + Columns[2].x,
+			Columns[0].y * other.x + Columns[1].y * other.y + Columns[2].y
+		);
+	}
+
+	Vec2 operator*(const Mat4& left, const Vec2& right)
+	{
+		return left.Multiply(right);
+	}
+
 	Vec3 operator*(const Mat4 & left, const Vec3 & right)
 	{
 		return left.Multiply(right);
@@ -322,8 +335,5 @@ namespace Lorwen { namespace Maths {
 
 
 
-
-
-
 	//END
-} }
+}

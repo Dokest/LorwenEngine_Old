@@ -1,7 +1,7 @@
 #include "Vec3.h"
 
 
-namespace Lorwen { namespace Maths {
+namespace Maths {
 
 	Vec3::Vec3()
 	{
@@ -115,7 +115,5 @@ namespace Lorwen { namespace Maths {
 	}
 
 
-
-
 	//END
-} }
+}

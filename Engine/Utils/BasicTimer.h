@@ -4,46 +4,46 @@
 
 #include <string>
 
-namespace Lorwen {
+class BasicTimer
+{
+private:
+	int Frames = 0;
+	int UnusedFrame = 0;
+	double CurrentFrame = 0.0;
+	double LastFrame = 0.0;
+	float Time = 0.0f;
 
-	class BasicTimer
+public:
+	inline void FrameStart() 
 	{
-	private:
-		int Frames = 0;
-		int UnusedFrame = 0;
-		double CurrentFrame = 0.0;
-		double LastFrame = 0.0;
-		float Time = 0.0f;
+		CurrentFrame = glfwGetTime();
+		Time += CurrentFrame - LastFrame;
+	}
 
-	public:
-		inline void FrameStart() 
+	inline void FrameEnd()
+	{
+		Frames++;
+		LastFrame = CurrentFrame;
+	}
+
+	inline float GetTime()
+	{
+		return CurrentFrame - LastFrame;
+	}
+
+	inline int GetFrames() 
+	{
+		if (Time >= 1.0f)
 		{
-			CurrentFrame = glfwGetTime();
-			Time += CurrentFrame - LastFrame;
+			Time = 0.0f;
+			UnusedFrame = Frames;
+			Frames = 0;
+			return UnusedFrame;
 		}
 
-		inline void FrameEnd()
-		{
-			Frames++;
-			LastFrame = CurrentFrame;
-		}
+		return -5;
+	}
 
-		inline int GetFrames() 
-		{
-			if (Time >= 1.0f)
-			{
-				Time = 0.0f;
-				UnusedFrame = Frames;
-				Frames = 0;
-				return UnusedFrame;
-			}
+	
 
-			return -5;
-		}
-
-		
-
-	};
-
-
-}
+};
