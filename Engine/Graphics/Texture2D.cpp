@@ -14,18 +14,15 @@ void Texture2D::GenerateTextureFromData(unsigned int width, unsigned int heigth,
 	m_Height = heigth;
 
 	// Create Texture
-	std::cout << "Internal format: " << (InternalFormat  == GL_RGBA) << " Image Format: " << (ImageFormat == GL_RGBA) << std::endl;
+	std::cout << "Internal format: " << (bool)(InternalFormat  == GL_RGBA) << " Image Format: " << (ImageFormat == GL_RGBA) << std::endl;
 	glBindTexture(GL_TEXTURE_2D, m_TextureID);
 	glTexImage2D(GL_TEXTURE_2D, 0, InternalFormat, width, heigth, 0, ImageFormat, GL_UNSIGNED_BYTE, data);
-
 
 	// Set Texture wrap & filter modes
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, Wrap_S);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, Wrap_T);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, FilterMin);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, FilterMax);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Texture2D::Bind() const

@@ -8,11 +8,11 @@ EPlayerPawn::EPlayerPawn()
 {
 	SpriteComponent = GameObjectManager::RegisterComponent<LSpriteComponent>(this);
 
-	m_NFLocation = Maths::Vec2(400.0f, 50.0f);
+	Transform.Position = Maths::Vec3(400.0f, 50.0f, 0.0f);
 
-	SpriteComponent->SetLocation(m_NFLocation);
-	SpriteComponent->SetSize(Maths::Vec2(80, 20.f));
-	SpriteComponent->SetTint(Vec4(0.4f, 0.6f, 0.8f, 1.0f));
+	SpriteComponent->SetLocation(Maths::Vec2(Transform.Position.x, Transform.Position.y));
+	SpriteComponent->SetSize(Maths::Vec2(200, 40.f));
+	//SpriteComponent->SetTint(Vec4(0.4f, 0.6f, 0.8f, 1.0f));
 }
 
 
@@ -20,17 +20,23 @@ void EPlayerPawn::MoveRight(float value)
 {
 	if (value != 0)
 	{
-		printf("Pawn is moving %s\n", (value > 0) ? "right" : "left");
-
-		m_Velocity = (5.0f * value);
+		//printf("Pawn is moving %s with value:%f \n", ((value > 0) ? "right" : "left"), value);
+		m_Velocity = (500.0f * value);
 	}
 	else
 	{
-		m_Velocity = 0.0f;
+		if (m_Velocity > 0 && m_Velocity < 50)
+			m_Velocity -= 50.0f;
+		else if (m_Velocity < 0 && m_Velocity > 50)
+			m_Velocity += 50.0f;
+ 		else
+ 			m_Velocity = 0;
 	}
+
+	printf("Pawn is moving at %f\n", m_Velocity);
 }
 
-void EPlayerPawn::SetupInputComponent(class InputComponent* playerInput)
+void EPlayerPawn::SetupInputComponent(class LInputComponent* playerInput)
 {
 	EPawn::SetupInputComponent(playerInput);
 
@@ -40,17 +46,13 @@ void EPlayerPawn::SetupInputComponent(class InputComponent* playerInput)
 void EPlayerPawn::OnUpdate(float deltaTime)
 {
  	float pos = SpriteComponent->GetLocation().x;
-// 	m_Velocity = (m_Acceleration * deltaTime);
 
-	if (abs(m_Velocity) > m_MaxSpeed)
-		m_Velocity = (m_Velocity > 0) ? m_MaxSpeed : m_MaxSpeed * -1;
+	Maths::Vec2 FinalPos(pos + (m_Velocity * deltaTime), SpriteComponent->GetLocation().y);
 
-	SpriteComponent->SetLocation(Maths::Vec2(pos + m_Velocity, SpriteComponent->GetLocation().y));
+	if (FinalPos.x < 5 + SpriteComponent->GetSize().x / 2)
+		FinalPos.x = 5 + SpriteComponent->GetSize().x / 2;
+	else if (FinalPos.x > ((1280 - SpriteComponent->GetSize().x / 2) - 5))
+		FinalPos.x = (1280 - SpriteComponent->GetSize().x / 2) - 5;
 
-	std::cout << "Velocity: " << m_Velocity << " Acceleration: " << m_Acceleration << std::endl;
-
-
-
-
-	
+	SpriteComponent->SetLocation(FinalPos);
 }

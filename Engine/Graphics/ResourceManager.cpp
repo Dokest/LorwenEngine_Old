@@ -23,7 +23,7 @@ std::map<unsigned int, VertexBuffer> ResourceManager::m_VertexBuffers;
 
 ResourceManager::ResourceManager()
 {
-	LoadShader("../Engine/Shaders/BatchSprite.vert", "../Engine/Shaders/BatchSprite.frag", nullptr, "DEFAULT");
+	LoadShader("../Engine/Shaders/TexturedSprite.vert", "../Engine/Shaders/TexturedSprite.frag", nullptr, "DEFAULT");
 
 	unsigned int indices[6] =
 	{
@@ -43,6 +43,8 @@ ResourceManager::ResourceManager()
 	LoadVertexBuffer(vertices, sizeof(float) * 8, "DEFAULT");
 
 	LoadVertexArray("DEFAULT");
+
+	LoadTexture("../Others/Textures/TransparencyCheck.png", true, "DEFAULT");
 }
 
 
@@ -182,8 +184,10 @@ Texture2D ResourceManager::loadTextureFromFile(const char* file, bool bAlpha)
 	// Load image
 	int width, height;
 
-	unsigned char* image = SOIL_load_image(file, &width, &height, 0, bAlpha == true ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+	unsigned char* image = SOIL_load_image(file, &width, &height, 0, (bAlpha == true) ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
 	std::cout << SOIL_last_result() << std::endl;
+
+	std::cout << image << std::endl;
 
 	texture.GenerateTextureFromData(width, height, image);
 

@@ -13,7 +13,7 @@ void EPawn::Possess(class WPlayerController* playerController)
 {
 	m_PlayerController = playerController;
 
-	SetupInputComponent(playerController->GetInputComponent());
+	SetupInputComponent(playerController->GetLInputComponent());
 
 	OnPossess();
 }
@@ -28,7 +28,7 @@ void EPawn::OnPossess()
 
 }
 
-void EPawn::SetupInputComponent(class InputComponent* inputComponent)
+void EPawn::SetupInputComponent(class LInputComponent* inputComponent)
 {
 
 }

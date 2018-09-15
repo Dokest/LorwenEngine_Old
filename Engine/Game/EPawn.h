@@ -26,6 +26,6 @@ protected:
 	 *  Input
 	 */
 
-	virtual void SetupInputComponent(class InputComponent* inputComponent);
+	virtual void SetupInputComponent(class LInputComponent* inputComponent);
 };
 

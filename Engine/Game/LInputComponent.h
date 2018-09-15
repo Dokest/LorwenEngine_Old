@@ -7,7 +7,7 @@
 #include <vector>
 #include <functional>
 
-#include "GameInputManager.h"
+#include "LGameInputManager.h"
 
 
 template<typename>
@@ -38,10 +38,11 @@ struct SAxisInput
 
 };
 
-class InputComponent : public Component
+class LInputComponent : public Component
 {
 private:
 	bool bHasFocus = false;
+	int m_ControllerID = -1;
 
 	std::map<unsigned int, SInputFunction<float>> m_BindedFunctions;
 
@@ -63,17 +64,17 @@ public:
 	template<typename ClassOwner>
 	void BindAction(const char* actionName, EInputState state, ClassOwner* classInstance, void(ClassOwner::*function)(void))
 	{
-		unsigned int hHashedName = GameInputManager::Singleton_GameInputManager->BindAction(*this, actionName, state);
-
-		SInputFunction<void> newInput;
-		newInput.Function = std::bind(function, classInstance);
-		m_BindedActions[std::pair<unsigned int, EInputState>(hHashedName, state)] = newInput;
+// 		unsigned int hHashedName = GameInputManager::Singleton_GameInputManager->BindAction(*this, actionName, state);
+// 
+// 		SInputFunction<void> newInput;
+// 		newInput.Function = std::bind(function, classInstance);
+// 		m_BindedActions[std::pair<unsigned int, EInputState>(hHashedName, state)] = newInput;
 	}
 
 	template<typename ClassOwner>
 	void BindAxis(const char* actionName, ClassOwner* classInstance, void(ClassOwner::*function)(float))
 	{
-		unsigned int hHashedName = GameInputManager::Singleton_GameInputManager->BindAxis(*this, actionName);
+		unsigned int hHashedName = LGameInputManager::BindAxis(actionName, m_ControllerID, this);
 
 		SInputFunction<float> newInput;
 		newInput.Function = std::bind(function, classInstance, std::placeholders::_1);
@@ -83,6 +84,11 @@ public:
 	//template<typename ClassOwner>
 	//void BindAction(const )
 
+	inline unsigned char GetControllerID() { return m_ControllerID; }
+	inline void SetControllerID(unsigned char controllerID) { m_ControllerID = controllerID; }
+
+private:
+	virtual void OnCreation();
 };
 
 

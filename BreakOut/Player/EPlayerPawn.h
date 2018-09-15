@@ -8,7 +8,7 @@ private:
 	class LSpriteComponent* SpriteComponent;
 ;
 	float m_Velocity = 0;
-	float m_MaxSpeed = 3.0f;
+	float m_MaxSpeed = 500.0f;
 
 public:
 	EPlayerPawn();
@@ -21,7 +21,7 @@ private:
 	 *  Input
 	 */
 protected:
-	virtual void SetupInputComponent(class InputComponent* playerInput);
+	virtual void SetupInputComponent(class LInputComponent* playerInput);
 
 	virtual void OnUpdate(float deltaTime) override;
 };

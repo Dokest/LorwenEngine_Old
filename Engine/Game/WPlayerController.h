@@ -9,7 +9,7 @@ private:
 	unsigned char m_ControllerID;
 	class EPawn* m_PossessPawn;
 
-	class InputComponent* m_InputComponent;
+	class LInputComponent* m_InputComponent;
 public:
 
 	virtual void OnCreation() override;
@@ -19,11 +19,11 @@ public:
 	 */
 
 public:
-	virtual void SetupInputComponent(class InputComponent* playerInput);
+	virtual void SetupInputComponent(class LInputComponent* playerInput);
 
 	void PossessPawn(class EPawn* pawn);
 
-	class InputComponent* GetInputComponent() const { return m_InputComponent; }
+	class LInputComponent* GetLInputComponent() const { return m_InputComponent; }
 };
 
 

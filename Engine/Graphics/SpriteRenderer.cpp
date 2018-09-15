@@ -28,6 +28,11 @@ void SpriteRenderer::Render()
 		std::array<float, 500> buffer;
 		unsigned int i = 0;
 
+
+		glActiveTexture(GL_TEXTURE0);
+		instances.Material->Texture->Bind();
+
+
 		for (LSpriteComponent* sprite : instances.Renderables)
 		{
 			Vec2 loc = sprite->GetLocation();
@@ -40,8 +45,10 @@ void SpriteRenderer::Render()
 			buffer[i + 3] = tint.y;
 			buffer[i + 4] = tint.z;
 			buffer[i + 5] = tint.w;
+			buffer[i + 6] = 0.0f;
+			buffer[i + 7] = 0.0f;
 
-			i += 6;
+			i += 8;
 
 			buffer[i] = loc.x + (size.x / 2);
 			buffer[i + 1] = loc.y + (size.y / 2);
@@ -49,8 +56,10 @@ void SpriteRenderer::Render()
 			buffer[i + 3] = tint.y;
 			buffer[i + 4] = tint.z;
 			buffer[i + 5] = tint.w;
+			buffer[i + 6] =  1.0f;
+			buffer[i + 7] =  0.0f;
 
-			i += 6;
+			i += 8;
 
 			buffer[i] = loc.x + (size.x / 2);
 			buffer[i + 1] = loc.y - (size.y / 2);
@@ -58,8 +67,10 @@ void SpriteRenderer::Render()
 			buffer[i + 3] = tint.y;
 			buffer[i + 4] = tint.z;
 			buffer[i + 5] = tint.w;
+			buffer[i + 6] = 1.0f;
+			buffer[i + 7] = 1.0f;
 
-			i += 6;
+			i += 8;
 
 			buffer[i] = loc.x - (size.x / 2);
 			buffer[i + 1] = loc.y - (size.y / 2);
@@ -67,8 +78,10 @@ void SpriteRenderer::Render()
 			buffer[i + 3] = tint.y;
 			buffer[i + 4] = tint.z;
 			buffer[i + 5] = tint.w;
+			buffer[i + 6] = 0.0f;
+			buffer[i + 7] = 1.0f;
 
-			i += 6;
+			i += 8;
 		}
 
 		instances.Material->pVBO->BufferData(sizeof(buffer), &buffer[0], GL_STATIC_DRAW);
@@ -102,6 +115,7 @@ void SpriteRenderer::Submit(unsigned int hspriteName, LSpriteComponent* sprite)
 	VertexBufferLayout* layout = new VertexBufferLayout();
 	layout->Push<float>(2);
 	layout->Push<float>(4, true);
+	layout->Push<float>(2);
 
 	iSprite.Material->pVAO->AddBuffer(*iSprite.Material->pVBO, *layout);
 
@@ -115,8 +129,8 @@ void SpriteRenderer::Submit(const char* spriteName, class LSpriteComponent* spri
 	Submit(hspriteName, sprite);
 }
 
-void SpriteRenderer::Init()
+void SpriteRenderer::Init(const float width, const float height)
 {
-	m_ProjectionMatrix = Maths::Mat4::Orthographic(0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
+	m_ProjectionMatrix = Maths::Mat4::Orthographic(0.0f, width, 0.0f, height, -1.0f, 1.0f);
 }
 

@@ -7,21 +7,20 @@
 
 #include "Levels/BasicLevel.h"
 #include "Game/GameObjectManager.h"
-#include "Game/GameInputManager.h"
+#include "Game/LGameInputManager.h"
 
-#define LORWEN_SHOW_FPS 1
+#define LORWEN_SHOW_FPS 0
 
 int main()
 {
 	/* Start Managers */
 	GameObjectManager objectManager = GameObjectManager();
 
-	GameInputManager inputManager = GameInputManager();
+	LGameInputManager inputManager = LGameInputManager();
 	inputManager.Init();
 
 	Window gameWindow;
-	gameWindow.Init(800, 600, "Lorwen Engine Prototype - Breakout", &inputManager);
-
+	gameWindow.Init(1280, 720, "Lorwen Engine Prototype - Breakout", &inputManager);
 	
 	ResourceManager resourceManager;
 
@@ -42,7 +41,7 @@ int main()
 
 	while (!gameWindow.ShouldCloseWindow())
 	{
-		glClearColor(0.0, 0.0, 0.0, 1.0);
+		glClearColor(0.0, 0.0, 0.0, 0.0);
 		timer.FrameStart();
 		gameWindow.Clear(GL_COLOR_BUFFER_BIT);
 
@@ -51,6 +50,8 @@ int main()
 
 		level.Submit(nullptr);
 		level.Render();
+
+		inputManager.CheckInputs();
 
 		objectManager.Update(timer.GetTime());
 

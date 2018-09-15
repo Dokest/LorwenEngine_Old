@@ -12,7 +12,7 @@ struct SpriteMaterial
 
 	/* Material Attributes */
 	Maths::Vec4 Tint;
-	// Texture missing
+	class Texture2D * Texture;
 
 	class Shader* pShader;
 
@@ -22,7 +22,8 @@ struct SpriteMaterial
 
 	SpriteMaterial()
 		: ID(0), Tint(Maths::Vec4(1.0f, 1.0f, 1.0f, 1.0f)), pShader(&ResourceManager::GetShader("DEFAULT"))
-		, pIBO(&ResourceManager::GetIndexBuffer("DEFAULT")), pVBO(&ResourceManager::GetVertexBuffer("DEFAULT")), pVAO(&ResourceManager::GetVertexArray("DEFAULT"))
+		, pIBO(&ResourceManager::GetIndexBuffer("DEFAULT")), pVBO(&ResourceManager::GetVertexBuffer("DEFAULT")), pVAO(&ResourceManager::GetVertexArray("DEFAULT")),
+		Texture(&ResourceManager::GetTexture("DEFAULT"))
 	{ }
 };
 

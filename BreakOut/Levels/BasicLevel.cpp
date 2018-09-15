@@ -61,7 +61,7 @@ void BasicLevel::Load()
 	spriteRenderer.SubmitSprite(spriteTest);
 #else
 
-	renderer.Init();
+	renderer.Init(1280, 720);
 
 
 #endif

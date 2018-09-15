@@ -14,6 +14,6 @@ public:
 
 	virtual void OnCreation() override;
 
-	virtual void SetupInputComponent(class InputComponent* playerInput) override;
+	virtual void SetupInputComponent(class LInputComponent* playerInput) override;
 };
 

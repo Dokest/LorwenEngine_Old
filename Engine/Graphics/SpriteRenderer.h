@@ -35,6 +35,6 @@ public:
 	void Submit(unsigned int hspriteName, class LSpriteComponent* sprite);
 	void Submit(const char* spriteName, class LSpriteComponent* sprite);
 
-	void Init();
+	void Init(const float width, const float height);
 };
 

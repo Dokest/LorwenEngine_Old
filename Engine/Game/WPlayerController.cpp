@@ -1,17 +1,17 @@
 #include "WPlayerController.h"
 
-#include "GameInputManager.h"
+#include "LGameInputManager.h"
 
-#include "InputComponent.h"
+#include "LInputComponent.h"
 #include "EPawn.h"
 
 
 void WPlayerController::OnCreation()
 {
-	SetupInputComponent(GameObjectManager::RegisterComponent<InputComponent>(this));
+	SetupInputComponent(GameObjectManager::RegisterComponent<LInputComponent>(this));
 }
 
-void WPlayerController::SetupInputComponent(InputComponent* playerInput)
+void WPlayerController::SetupInputComponent(LInputComponent* playerInput)
 {
 	m_InputComponent = playerInput;
 }

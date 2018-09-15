@@ -2,7 +2,7 @@
 
 #include "Game/KEY_Alphabet.h"
 
-#include "Game/InputComponent.h"
+#include "Game/LInputComponent.h"
 
 #include "Game/GameInputManager.h"
 
@@ -29,9 +29,9 @@ void PlayerPaddle::OnCreation()
 	WPlayerController::OnCreation();
 }
 
-void PlayerPaddle::SetupInputComponent(class InputComponent* playerInput)
+void PlayerPaddle::SetupInputComponent(class LInputComponent* playerInput)
 {
 	WPlayerController::SetupInputComponent(playerInput);
 
-	playerInput->BindAction("Interact", Press, this, &PlayerPaddle::Interact);
+	playerInput->BindAction("Interact", EInputState::Press, this, &PlayerPaddle::Interact);
 }

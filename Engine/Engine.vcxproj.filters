@@ -74,10 +74,6 @@
     <ClInclude Include="Graphics\Renderable.h">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameInputManager.h" />
-    <ClInclude Include="Game\InputComponent.h">
-      <Filter>Game Objects\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Game\BaseLevel.h">
       <Filter>Game Objects\Levels</Filter>
     </ClInclude>
@@ -106,6 +102,14 @@
     <ClInclude Include="Graphics\LSpriteComponent.h">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
+    <ClInclude Include="Game\SController.h" />
+    <ClInclude Include="Game\LInputComponent.h">
+      <Filter>Game Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\LGameInputManager.h">
+      <Filter>Game Objects\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\LController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths\Mat4.cpp">
@@ -159,10 +163,6 @@
     <ClCompile Include="Graphics\Renderable.cpp">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameInputManager.cpp" />
-    <ClCompile Include="Game\InputComponent.cpp">
-      <Filter>Game Objects\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Game\MemoryManager.cpp" />
     <ClCompile Include="Game\WPlayerController.cpp">
       <Filter>Game Objects\WorldObjects\Player</Filter>
@@ -180,6 +180,13 @@
     <ClCompile Include="Game\BaseLevel.cpp">
       <Filter>Game Objects\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Game\LInputComponent.cpp">
+      <Filter>Game Objects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\LGameInputManager.cpp">
+      <Filter>Game Objects\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\LController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Maths">
@@ -242,6 +249,12 @@
       <Filter>Graphics Engine\Shaders</Filter>
     </None>
     <None Include="Shaders\BatchSprite.vert">
+      <Filter>Graphics Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\TexturedSprite.frag">
+      <Filter>Graphics Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\TexturedSprite.vert">
       <Filter>Graphics Engine\Shaders</Filter>
     </None>
   </ItemGroup>

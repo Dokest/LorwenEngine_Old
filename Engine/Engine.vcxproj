@@ -156,7 +156,6 @@
   <ItemGroup>
     <ClInclude Include="Game\EPawn.h" />
     <ClInclude Include="Game\KEY_Alphabet.h" />
-    <ClInclude Include="Game\GameInputManager.h" />
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\WorldObject.h" />
     <ClInclude Include="Graphics\BaseBuffer.h" />
@@ -167,12 +166,15 @@
     <ClInclude Include="Graphics\BaseRenderer.h" />
     <ClInclude Include="Graphics\Renderable.h" />
     <ClInclude Include="Graphics\SpriteRen.h" />
-    <ClInclude Include="Game\InputComponent.h" />
+    <ClInclude Include="Game\LInputComponent.h" />
     <ClInclude Include="Game\WPlayerController.h" />
     <ClInclude Include="Game\MemoryManager.h" />
     <ClInclude Include="Game\Object.h" />
     <ClInclude Include="Game\LGameMode.h" />
     <ClInclude Include="Graphics\SpriteMaterialManager.h" />
+    <ClInclude Include="Game\SController.h" />
+    <ClInclude Include="Game\LController.h" />
+    <ClInclude Include="Game\LGameInputManager.h" />
     <ClInclude Include="Utils\BasicTimer.h" />
     <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Maths\Mat4.h" />
@@ -197,14 +199,15 @@
   <ItemGroup>
     <ClCompile Include="Game\BaseLevel.cpp" />
     <ClCompile Include="Game\EPawn.cpp" />
-    <ClCompile Include="Game\GameInputManager.cpp" />
     <ClCompile Include="Game\WorldObject.cpp" />
     <ClCompile Include="Graphics\BaseBuffer.cpp" />
     <ClCompile Include="Graphics\BatchSpriteRenderer.cpp" />
     <ClCompile Include="Graphics\IndexBuffer.cpp" />
-    <ClCompile Include="Game\InputComponent.cpp" />
+    <ClCompile Include="Game\LInputComponent.cpp" />
     <ClCompile Include="Game\LGameMode.cpp" />
     <ClCompile Include="Graphics\SpriteMaterialManager.cpp" />
+    <ClCompile Include="Game\LController.cpp" />
+    <ClCompile Include="Game\LGameInputManager.cpp" />
     <ClCompile Include="Maths\Mat4.cpp" />
     <ClCompile Include="Maths\Vec2.cpp" />
     <ClCompile Include="Maths\Vec3.cpp" />
@@ -229,6 +232,8 @@
     <None Include="Shaders\Basic.vert" />
     <None Include="Shaders\BatchSprite.frag" />
     <None Include="Shaders\BatchSprite.vert" />
+    <None Include="Shaders\TexturedSprite.frag" />
+    <None Include="Shaders\TexturedSprite.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

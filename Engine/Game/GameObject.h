@@ -6,7 +6,7 @@
 #include "Component.h"
 
 #include "GameObjectManager.h"
-#include "InputComponent.h"
+#include "LInputComponent.h"
 
 
 class GameObject : public Object
