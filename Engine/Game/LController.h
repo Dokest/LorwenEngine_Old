@@ -88,6 +88,29 @@ struct SBindings
 	EInputState State;
 };
 
+struct SAxisBinding
+{
+	unsigned int hBindingName = 0;
+	int BindingKey = -1;
+	float Sensitivity;
+};
+
+struct SButtonBinding
+{
+	int BindingKey = -1;
+	unsigned int hBindingName = 0;
+	EInputState State;
+	EInputState LastFrameState;
+};
+
+struct SVirtualAxisBinding
+{
+	int BindingKey1 = -1;
+	int BindingKey2 = -1;
+	unsigned int hBindingName = 0;
+	float Sensitivity;
+};
+
 class LController : public Object
 {
 public:
@@ -97,13 +120,24 @@ public:
 
 private:
 
+	std::array<SAxisBinding, 15> m_AxisBindings;
+	std::array<SVirtualAxisBinding, 15> m_VirtualAxisBindings;
+	std::array<SButtonBinding, 15> m_ButtonBindings;
+
 	std::array<SBindings, 50> m_Bindings;
 public:
 	void Init(const EControllerDevice device);
 
 	void DetectsInputs();
 
-	void BindAxis(unsigned int hBindingName, int key, float value, const EInputState inputType);
+	void BindAxis(unsigned int hBindingName, int key, float value);
+
+	/**
+	 *	@param hBindingName: hashed name of the binding.
+	 *	@param key1, key2: key numbers to set the both axis to. A -1 is consider to skip that key.
+	 *	@param value: Axis Sensibility.
+	 */
+	void BindVirtualAxis(const unsigned int hBindingName, const int key1, const int key2, const float value);
 
 private:
 	void DetectKeyboardInputs();

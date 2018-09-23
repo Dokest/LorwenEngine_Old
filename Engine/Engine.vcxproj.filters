@@ -87,7 +87,6 @@
     <ClInclude Include="Game\Object.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObjectManager.h" />
     <ClInclude Include="Utils\FileReader.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -102,14 +101,11 @@
     <ClInclude Include="Graphics\LSpriteComponent.h">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="Game\SController.h" />
-    <ClInclude Include="Game\LInputComponent.h">
-      <Filter>Game Objects\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\LGameInputManager.h">
-      <Filter>Game Objects\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\LController.h" />
+    <ClInclude Include="Game\GameObjectManager.h" />
+    <ClInclude Include="Game\LInputComponent.h" />
+    <ClInclude Include="Game\LGameInputManager.h" />
+    <ClInclude Include="Game\InputHelpers.h" />
+    <ClInclude Include="Game\Inputs\KeyboardEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths\Mat4.cpp">
@@ -170,7 +166,6 @@
     <ClCompile Include="Game\Object.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObjectManager.cpp" />
     <ClCompile Include="Game\EPawn.cpp" />
     <ClCompile Include="Game\LGameMode.cpp" />
     <ClCompile Include="Graphics\SpriteMaterialManager.cpp" />
@@ -180,13 +175,9 @@
     <ClCompile Include="Game\BaseLevel.cpp">
       <Filter>Game Objects\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="Game\LInputComponent.cpp">
-      <Filter>Game Objects\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\LGameInputManager.cpp">
-      <Filter>Game Objects\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\LController.cpp" />
+    <ClCompile Include="Game\GameObjectManager.cpp" />
+    <ClCompile Include="Game\LInputComponent.cpp" />
+    <ClCompile Include="Game\LGameInputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Maths">

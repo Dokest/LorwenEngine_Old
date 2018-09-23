@@ -1,201 +1,204 @@
 #include "LGameInputManager.h"
 
-#include "Utils/FileReader.h"
+#include <GLFW/glfw3.h>
 
+#include <sstream>
 #include <string>
 #include <iostream>
-#include <stdlib.h>
 
+#include "Utils/FileReader.h"
+#include "Inputs/KeyboardEnum.h"
 
-std::array<class LController, 20> LGameInputManager::m_ConnectedControllers;
+#include "LInputComponent.h"
 
-std::array<class LController*, 4> LGameInputManager::m_PlayingControllers;
+std::array<SInputListeners, 4> LGameInputManager::m_InputListeners;
 
-std::map<const std::string, std::vector<SKeyBinding>> LGameInputManager::m_FileBindings;
+std::vector<SInputBind<EInputType::ACTION>> LGameInputManager::m_PossibleActions;
 
-void LGameInputManager::Init()
+std::vector<SInputBind<EInputType::AXIS>> LGameInputManager::m_PossibleAxis;
+
+struct GLFWwindow* LGameInputManager::m_pWindow;
+
+std::hash<std::string> LGameInputManager::m_Hasher;
+
+void LGameInputManager::Init(struct GLFWwindow* window)
 {
-	/* Read Controls on the DEFAULT file */
-	ReadControlsFile();
+	m_pWindow = window;
 
-	/* Set Keyboard as First Controller*/
-	if (bSetKeyboardAsFirstContrller)
+	// Create Keyboard mapping
+	SKeyboardMapping* keyboardMapping = new SKeyboardMapping();
+
+	ReadControlsFile();
+}
+
+void LGameInputManager::CheckInputs()
+{
+	// Go through all the listeners (players)
+	for (SInputListeners& listener : m_InputListeners)
 	{
-		AddControllerInterface(0, EControllerDevice::Keyboard);
+		// If a player is not binded with a Input Component, it's not valid.
+		if(listener.InputComponent == nullptr)
+			continue;
+
+		// Go through all the buttons binded with the input component
+		for (SInputBind<EInputType::ACTION>*& button : listener.Actions)
+		{
+			// If the key has the same state as last frame, it doesn't need to call the action, as 'HOLD' action type is not supported.
+			if ((EButtonAction)glfwGetKey(m_pWindow, button->Key) == button->LastFrameState)
+				continue;
+
+			// Set this frame as last frame state
+			button->LastFrameState = (EButtonAction)glfwGetKey(m_pWindow, button->Key);
+
+			// Test the trigger state with the actual state
+			if (button->Key != -1 && button->ActionTrigger == button->LastFrameState)
+			{
+				button->Function();
+			}
+
+		}
+
+		for (SInputBind<EInputType::AXIS>*& axis : listener.Axes)
+		{
+			float finalResult = glfwGetKey(m_pWindow, axis->PositiveKey);
+
+			if (glfwGetKey(m_pWindow, axis->PositiveKey) == 1)
+				finalResult = 1;
+			else if (glfwGetKey(m_pWindow, axis->NegativeKey) == 1)
+				finalResult = -1;
+			else
+				finalResult = 0;
+
+			axis->Function(finalResult * axis->Sensitivity);
+		}
+
+	}
+
+
+}
+
+int LGameInputManager::GetKeyByInputID(const unsigned int inputID, const EInputDevice device)
+{
+	return m_PossibleActions.at(inputID).Key;
+}
+
+std::map<size_t, int> LGameInputManager::m_KeyBindings;
+
+unsigned char LGameInputManager::AddInputController(class LInputComponent* inputController)
+{
+	for (unsigned int i = 0; i < m_InputListeners.size(); i++)
+	{
+		if (m_InputListeners[i].InputComponent == nullptr)
+		{
+			m_InputListeners[i].InputComponent = inputController;
+			m_InputListeners[i].Buttons = inputController->GetButtonInputs();
+			return i;
+		}
+	}
+}
+
+void LGameInputManager::BindAction(class LInputComponent* component, std::function<void(void)> function, const std::string inputName, const EButtonAction actionTrigger)
+{
+	size_t inputID = m_Hasher(inputName);
+
+	for (SInputBind<EInputType::ACTION>& input : m_PossibleActions)
+	{
+		if (input.InputID == inputID)
+		{
+			input.ActionTrigger = actionTrigger;
+			input.Function = function;
+
+			m_InputListeners[component->GetControllerID()].Actions.push_back(&input);
+
+			return;
+		}
+	}
+
+}
+
+void LGameInputManager::BindAxis(class LInputComponent* component, std::function<void(float)> function, const std::string inputName)
+{
+	size_t inputID = m_Hasher(inputName);
+
+	for (SInputBind<EInputType::AXIS>& input : m_PossibleAxis)
+	{
+		if (input.InputID == inputID)
+		{
+			input.Function = function;
+
+
+			m_InputListeners[component->GetControllerID()].Axes.push_back(&input);
+
+			return;
+		}
 	}
 }
 
 void LGameInputManager::ReadControlsFile()
 {
-	/* Create GamePad controls */
-	new SGamepadMapping; 
+	std::ifstream ControlsFile = FileReader::GetFileStream("GameControls.txt");
+ 
+ 	std::string line;
+ 
+	EInputDevice device = EInputDevice::ANY;
+	EInputType type = EInputType::ACTION;
 
-	std::ifstream ControlsFile = FileReader::GetFileStream("Controls.txt");
-
-	std::string line;
-	unsigned char currentRead = 0; // 0 == AXIS / 1 == ACTIONS
+	unsigned int inputCounter = 0;
 
 	while (getline(ControlsFile, line))
 	{
-		if (line == "[Axis]")
+		// Dont read empty or commmented lines
+		if (line.length() == 0 || line[0] == '#')
+			continue;
+
+		// If line starts with '<', it means is a device changing line.
+		if (line[0] == '<')
 		{
-			currentRead = 0;
+			if (line == "<Keyboard>")
+				device = EInputDevice::KEYBOARD;
+			else
+				device = EInputDevice::GAMEPAD;
+
 			continue;
 		}
-		else if (line == "[Actions]")
+		else if (line[0] == '[')
 		{
-			currentRead = 1;
+			if (line == "[ACTION]")
+				type = EInputType::ACTION;
+			else // If its not an action, it has to be an axis. On Keyboard axis are called Virtual Axis
+				type = (device == EInputDevice::KEYBOARD) ? EInputType::VIRTUAL_AXIS : EInputType::AXIS;
+
 			continue;
 		}
-		else if (line == "")
+
+		std::string inputName = line.substr(0, line.find('=') - 1);
+		size_t inputID = m_Hasher(inputName);
+
+		if (type == EInputType::ACTION)
 		{
-			continue;
-		}
-		else if (currentRead == 0)
-		{
-			ReadAxisControl(line);
+			SInputBind<EInputType::ACTION> action;
+			action.Key = (int)*line.substr(line.find('=') + 2).c_str();
+			action.InputID = inputID;
+
+			action.Key = GetKeyByName(line.substr(line.find('=') + 2));
+			
+			m_PossibleActions.push_back(action);
 		}
 		else
 		{
-			ReadActionControl(line);
+			SInputBind<EInputType::AXIS> axis;
+			axis.PositiveKey = (int)*line.substr(line.find('=') + 2, line.find('-')).c_str();
+			axis.NegativeKey = (int)*line.substr(line.find('-') + 2).c_str();
+
+			axis.InputID = inputID;
+
+			m_PossibleAxis.push_back(axis);
 		}
 
-	}
-}
 
-void LGameInputManager::ReadAxisControl(const std::string& line)
-{
-	SKeyBinding binding;
-
-	std::string inputName = (line.substr(1, line.find('"', 2) - 1)).c_str();
-	//const char* inputName = testString.c_str();
-
-	std::string keys = line.substr(line.find('|', 3) + 2);
-
-	for (unsigned int i = 0; i < keys.size() - 1; i = (keys.find(')', i) + 2))
-	{
-		std::string keyName = keys.substr(i, keys.find('(', i) - i).c_str();
-
-		if (keyName.size() > 5)
-		{
-			binding.Device = EControllerDevice::Gamepad;
-			std::pair<int, EInputState> type = SGamepadMapping::GetKey(keyName.c_str());
-
-			binding.Key = type.first;
-			binding.InputType = type.second;
-		}
-		else
-		{
-			binding.Device = EControllerDevice::Keyboard;
-			binding.Key = (int)*(keyName.c_str());
-
-		}
-		//keys.substr(i, keys.find('(', i) - i);
-
-		//std::string test = keys.substr(keys.find('(', i) + 1, keys.find(')', i) - 2);
-
-		binding.Value = std::stof(keys.substr(keys.find('(', i) + 1, keys.find(')', i) - 2), nullptr);
-		m_FileBindings[inputName].push_back(binding);
-	}
-	
-}
-
-void LGameInputManager::ReadActionControl(const std::string& line)
-{
-// 	SInputMolecule<ACTION> input;
-// 	input.Action.hName = m_Hasher(line.substr(1, line.find('"', 3) - 1));
-// 	std::string keys = line.substr(line.find('|', 3) + 2);
-// 
-// 	for (unsigned int i = 0; i < keys.size(); i += 2)
-// 	{
-// 		input.Action.Keys.push_back(keys.substr(i, keys.find(' ', i) - i));
-// 	}
-// 
-// 	m_PossibleActions.push_back(input);
-// 
-// 	std::cout << "ACTION: {" << line.substr(1, line.find('"', 3) - 1) << "} : " << line.substr(line.find('|', 3) + 2) << std::endl;
-}
-
-unsigned int LGameInputManager::BindAxis(const char* inputName, int controllerID, class LInputComponent* inputComponent)
-{
-	for (LController* controller : m_PlayingControllers)
-	{
-		if (controller != nullptr && controller->ID == controllerID)
-		{
-			std::hash<const char*> hasher;
-			std::vector<SKeyBinding*> bindingVariables = GetInputKey(inputName, controller->Device, 2);
-
-			if (bindingVariables[0]->Key == -1)
-			{
-				printf("There was a problem trying to access key with input name: %s", inputName);
-				return 0;
-			}
-
-			for(SKeyBinding*& binding : bindingVariables)
-				controller->BindAxis(hasher(inputName), binding->Key, binding->Value, binding->InputType);
-
-			return hasher(inputName);
-		}
-	}
-}
-
-void LGameInputManager::AddControllerInterface(const int controllerID, const EControllerDevice device)
-{
-	for (LController& controller : m_ConnectedControllers)
-	{
-		if (controller.ID == -1)
-		{
-			controller.ID = controllerID;
-			controller.Init(device);
-
-			break;
-		}
+		inputCounter++;
 	}
 
-	return;
 
-// 	for (LController& connectedController : m_ConnectedControllers)
-// 		if (connectedController.ID == -1)
-// 		{
-// 			for (LController* playingController : m_PlayingControllers)
-// 			{
-// 				if (playingController == nullptr)
-// 				{
-// 					playingController = &connectedController;
-// 					playingController->Init(device);
-// 					return;
-// 				}
-// 			}
-// 		}
 }
 
-char LGameInputManager::AddInputComponent(class LInputComponent* inputComponent)
-{
-	for (LController& controller : m_ConnectedControllers)
-	{
-		if (controller.ID != -1 && controller.pInputComponent == nullptr)
-		{
-			controller.pInputComponent = inputComponent;
-
-			for (unsigned int i = 0; i < m_PlayingControllers.size(); i++)
-			{
-				if (m_PlayingControllers[i] == nullptr)
-				{
-					m_PlayingControllers[i] = &controller;
-					break;
-				}
-			}
-
-			return controller.ID;
-		}
-	}
-}
-
-void LGameInputManager::CheckInputs()
-{
-	for (LController* controller : m_PlayingControllers)
-	{
-		if(controller != nullptr)
-			controller->DetectsInputs();
-	}
-}

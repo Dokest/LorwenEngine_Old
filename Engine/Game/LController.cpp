@@ -59,55 +59,27 @@ void LController::DetectGamepadInputs()
 	const float* axes = glfwGetJoystickAxes(ID, &axisCount);
 	const unsigned char* buttons = glfwGetJoystickButtons(ID, &buttonCount);
 
-	float value = 0.0f;
-
-	for (unsigned int i = 0; i < m_Bindings.size(); i++)
+	/* Check Virtual Axis Bindings */
+	for (SVirtualAxisBinding& vA : m_VirtualAxisBindings)
 	{
-		SBindings& binding = m_Bindings[i];
-
-		if (binding.BindingKey == -1)
-			continue; // Might want to change this to return later on!
-
-		switch (binding.State)
-		{
-		case EInputState::VirtualAxis:
-			value = buttons[binding.BindingKey];
-
-			for (unsigned int a = i + 1; a < m_Bindings.size(); a++)
-			{
-				if (binding.hBindingName == m_Bindings[a].hBindingName)
-				{
-					value += buttons[binding.BindingKey];
-					*buttons[m_Bindings[a].BindingKey] = 0.0f;
-					break;
-				}
-			}
-
-			pInputComponent->CallAxisInput(binding.hBindingName, value * binding.Value);
-			
-			break;
-		case EInputState::Axis:
-			pInputComponent->CallAxisInput(binding.hBindingName, axes[binding.BindingKey] * binding.Value);
-			break;
-		default:
-			break;
-		}
-
-// 		if (binding.State == EInputState::Axis)
-// 		{
-// 			float value = glfwGetJoystickAxes(ID, &count)[binding.BindingKey];
-// 
-// 			printf("Value = %f\n", value);
-// 
-// 			//pInputComponent->CallAxisInput(binding.hBindingName, glfwGetJoystickAxes(ID, &count)[binding.BindingKey] * binding.Value);
-// 		}
-// // 		else if (binding.State != (EInputState)glfwGetKey(glfwWindow, binding.BindingKey))
-// // 		{
-// // 			binding.State = (EInputState)glfwGetKey(glfwWindow, binding.BindingKey);
-// // 			pInputComponent->CallActionInput(binding.hBindingName, binding.State);
-// // 		}
-
+		if (buttons[vA.BindingKey1] > 0 && buttons[vA.BindingKey2] == 0)
+			pInputComponent->CallAxisInput(vA.hBindingName, buttons[vA.BindingKey1]);		
+		else if (buttons[vA.BindingKey1] == 0 && buttons[vA.BindingKey2] > 0)				
+			pInputComponent->CallAxisInput(vA.hBindingName, buttons[vA.BindingKey2]);
+		else
+			pInputComponent->CallAxisInput(vA.hBindingName, 0);
 	}
+
+	/* Check for Axis Bindings */
+	for (SAxisBinding& axis : m_AxisBindings)
+		pInputComponent->CallAxisInput(axis.hBindingName, axes[axis.BindingKey] * axis.Sensitivity);
+
+
+	/* Check for Button Bindings*/
+	for (SButtonBinding& button : m_ButtonBindings)
+		if ((EInputState)buttons[button.BindingKey] == button.State && (EInputState)buttons[button.BindingKey] != button.LastFrameState)
+			pInputComponent->CallActionInput(button.hBindingName, button.State);
+
 }
 
 void LController::ClearAxis(const unsigned int hBindingName , const EInputState inputType)
@@ -134,23 +106,68 @@ void LController::ClearAxis(const unsigned int hBindingName , const EInputState 
 	}
 }
 
-void LController::BindAxis(unsigned int hBindingName, int key, float value, const EInputState inputType)
+void LController::BindAxis(unsigned int hBindingName, int key, float value)
 {
-	for (SBindings& bind : m_Bindings)
-	{
-		if (bind.hBindingName == hBindingName && inputType == EInputState::Axis)
-			ClearAxis(hBindingName, EInputState::Axis);
 
-		if (bind.BindingKey == -1)
+	for (SAxisBinding& axis : m_AxisBindings)
+	{
+		if (axis.BindingKey == -1)
 		{
-			bind.hBindingName = hBindingName;
-			bind.BindingKey = key;
-			bind.State = inputType;
-			bind.Value = value;
+			axis.BindingKey = key;
+			axis.hBindingName = hBindingName;
+			axis.Sensitivity = value;
+		}
+	}
+
+// 	for (SBindings& bind : m_Bindings)
+// 	{
+// 		if (bind.hBindingName == hBindingName && inputType == EInputState::Axis)
+// 			ClearAxis(hBindingName, EInputState::Axis);
+// 
+// 		if (bind.BindingKey == -1)
+// 		{
+// 			bind.hBindingName = hBindingName;
+// 			bind.BindingKey = key;
+// 			bind.State = inputType;
+// 			bind.Value = value;
+// 			return;
+// 		}
+// 		
+// 	}
+}
+
+void LController::BindVirtualAxis(const unsigned int hBindingName, const int key1, const int key2, const float value)
+{
+	SVirtualAxisBinding* vAToChange = nullptr;
+
+	for (SVirtualAxisBinding& vA : m_VirtualAxisBindings)
+	{
+		if (vA.hBindingName == hBindingName)
+		{
+			if (key1 != -1)
+				vA.BindingKey1 = key1;
+
+			if (key2 != -1)
+				vA.BindingKey2 = key2;
+
+			if(value != 0)
+				vA.Sensitivity = value;
+
 			return;
 		}
-		
+
+		if (vAToChange == nullptr && vA.hBindingName == 0)
+			vAToChange = &vA;
 	}
+
+	if (key1 != -1)
+		vAToChange->BindingKey1 = key1;
+
+	if (key2 != -1)
+		vAToChange->BindingKey2 = key2;
+
+	vAToChange->hBindingName = hBindingName;
+	vAToChange->Sensitivity = value;
 }
 
 std::array<std::string, 15> SGamepadMapping::Buttons;

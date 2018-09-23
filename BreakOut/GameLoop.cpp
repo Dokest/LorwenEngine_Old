@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
-#include "GL/glew.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "Graphics/Window.h"
 #include "Utils/BasicTimer.h"
@@ -16,11 +17,11 @@ int main()
 	/* Start Managers */
 	GameObjectManager objectManager = GameObjectManager();
 
-	LGameInputManager inputManager = LGameInputManager();
-	inputManager.Init();
-
 	Window gameWindow;
-	gameWindow.Init(1280, 720, "Lorwen Engine Prototype - Breakout", &inputManager);
+	gameWindow.Init(1280, 720, "Lorwen Engine Prototype - Breakout");
+
+	LGameInputManager inputManager = LGameInputManager();
+	inputManager.Init(gameWindow.GetGLFWwindowPointer());
 	
 	ResourceManager resourceManager;
 

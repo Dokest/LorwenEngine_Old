@@ -32,6 +32,4 @@ void PlayerPaddle::OnCreation()
 void PlayerPaddle::SetupInputComponent(class LInputComponent* playerInput)
 {
 	WPlayerController::SetupInputComponent(playerInput);
-
-	playerInput->BindAction("Interact", EInputState::Press, this, &PlayerPaddle::Interact);
 }

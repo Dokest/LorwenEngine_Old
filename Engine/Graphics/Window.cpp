@@ -6,8 +6,6 @@
 #include "Game/GameInputManager.h" // Delete after LGameInputManager is completely integrated!!!!
 #include "Game/LGameInputManager.h"
 
-Window* Window::Singleton_Window;
-
 Window::Window()
 {
 }
@@ -17,7 +15,7 @@ Window::~Window()
 	glfwTerminate();
 }
 
-void Window::Init(unsigned int width, unsigned int height, const char* title, class LGameInputManager* inputManager)
+void Window::Init(unsigned int width, unsigned int height, const char* title)
 {
 	m_Width = width;
 	m_Height = height;
@@ -63,13 +61,7 @@ void Window::Init(unsigned int width, unsigned int height, const char* title, cl
 	glfwSetWindowSizeCallback(m_pWindow, WindowResize_Callback);
 
 	DetectConnectedControllers();
-	//m_XBoxControllers[0].bInUse = true;
 
-	/* Set input Manager Pointer */
-	m_pInputManager = inputManager;
-
-
-	Singleton_Window = this;
 }
 
 void Window::CheckControllerState()
@@ -128,10 +120,7 @@ void Window::ControllerConnection_Callback(int joy, int event)
 {
 	if (event == GLFW_CONNECTED)
 	{
-// 		if (strcmp(glfwGetJoystickName(joy), "Xbox 360 Controller") == 0)
-// 			type = XboxOne;
 
-		LGameInputManager::AddControllerInterface(joy, EControllerDevice::Gamepad);
 	}
 	else
 	{

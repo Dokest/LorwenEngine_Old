@@ -1,0 +1,11 @@
+# Game Controls
+# Use '#' to start a comment.
+
+<Keyboard>
+[AXIS]
+MoveUp = W - S
+MoveRight = D - A
+
+[ACTION]
+Interact = E
+ShowMenu = TAB

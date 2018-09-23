@@ -1,80 +1,70 @@
 #pragma once
 
-#include "Game/Object.h"
-
-#include "LController.h"
+#include "Object.h"
 
 #include <array>
-#include <map>
 #include <vector>
+#include <map>
 
+#include "InputHelpers.h"
 
-struct SKeyBinding
+#define NUMBER_OF_BUTTON_BINDINGS 15
+
+struct SFileControlAction
 {
 	int Key;
-	EControllerDevice Device;
-	float Value;
-	EInputState InputType;
+
+	unsigned int InputID;
+
+	EInputDevice Device;
 };
 
-class LGameInputManager : public Object
+struct SInputListeners 
+{
+	class LInputComponent* InputComponent;
+
+	std::array<SInputBind<EInputType::ACTION>, 15>* Buttons;
+
+	std::vector<SInputBind<EInputType::ACTION>*> Actions;
+	std::vector<SInputBind<EInputType::AXIS>*> Axes;
+};
+
+class LGameInputManager
 {
 private:
-	static std::array<class LController, 20> m_ConnectedControllers;
-	static std::array<class LController*, 4> m_PlayingControllers;
+	static std::array<SInputListeners, 4> m_InputListeners;
 
-	static std::map<const std::string, std::vector<SKeyBinding>> m_FileBindings;
+	static std::vector<SInputBind<EInputType::ACTION>> m_PossibleActions;
+	static std::vector<SInputBind<EInputType::AXIS>> m_PossibleAxis;
 
-	/**
-	 *	Configuration
-	 */
-
-	bool bSetKeyboardAsFirstContrller = false;
-
-private:
-	static inline std::vector<SKeyBinding*> GetInputKey(const std::string inputName, const EControllerDevice device, unsigned int bindingNumber)
-	{
-		bool bDone = false;
-
-		std::vector<SKeyBinding*> bindings;
-
-		for (SKeyBinding& binding : m_FileBindings[inputName])
-		{
-			if (binding.Device == device)
-			{
-				bindings.push_back(&binding);
-
-				bDone = true;
-// 				if (bindings.size() == bindingNumber)
-// 					return bindings;
-			}
-		}
-
-		if (bDone)
-			return bindings;
-
-		SKeyBinding key;
-		key.Key = -1;
-		bindings.push_back(&key);
-
-		return bindings;
-	}
-
-	void ReadControlsFile();
-
-	void ReadAxisControl(const std::string& line);
-	void ReadActionControl(const std::string& line);
+	static struct GLFWwindow* m_pWindow;
+	static std::hash<std::string> m_Hasher;
 
 public:
-	void Init();
-
-	static unsigned int BindAxis(const char* inputName, int controllerID, class LInputComponent* inputComponent);
-
-	static void AddControllerInterface(const int controllerID, const EControllerDevice device);
-
-	static char AddInputComponent(class LInputComponent* inputComponent);
+	/**
+	 *	This function needs to be called after generating the GLFW Window context
+	 *
+	 *	@param window
+	 */
+	void Init(struct GLFWwindow* window);
 
 	void CheckInputs();
 
-};
+	/**
+	 *  Input Component Binding
+	 */
+public:
+	static int GetKeyByInputID(const unsigned int inputID, const EInputDevice device);
+	static std::map<size_t, int> m_KeyBindings;
 
+	static unsigned char AddInputController(class LInputComponent* inputController);
+
+	/* Binds an action with a function */
+	static void BindAction(class LInputComponent* component, std::function<void(void)> function, const std::string inputName, const EButtonAction actionTrigger);
+
+	/* Binds an axis with a function */
+	static void BindAxis(class LInputComponent* component, std::function<void(float)> function, const std::string inputName);
+
+private:
+	void ReadControlsFile();
+};

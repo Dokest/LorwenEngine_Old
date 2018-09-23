@@ -33,7 +33,17 @@ void EPlayerPawn::MoveRight(float value)
  			m_Velocity = 0;
 	}
 
-	printf("Pawn is moving at %f\n", m_Velocity);
+	//printf("Pawn is moving at %f\n", m_Velocity);
+}
+
+void EPlayerPawn::Interact()
+{
+	printf("Interact!\n");
+}
+
+void EPlayerPawn::ShowMenu()
+{
+	printf("The menu is now Open\n");
 }
 
 void EPlayerPawn::SetupInputComponent(class LInputComponent* playerInput)
@@ -41,6 +51,8 @@ void EPlayerPawn::SetupInputComponent(class LInputComponent* playerInput)
 	EPawn::SetupInputComponent(playerInput);
 
 	playerInput->BindAxis("MoveRight", this, &EPlayerPawn::MoveRight);
+	playerInput->BindAction("Interact", EButtonAction::RELEASE, this, &EPlayerPawn::Interact);
+	playerInput->BindAction("ShowMenu", EButtonAction::PRESS, this, &EPlayerPawn::ShowMenu);
 }
 
 void EPlayerPawn::OnUpdate(float deltaTime)

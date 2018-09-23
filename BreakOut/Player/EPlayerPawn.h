@@ -16,7 +16,10 @@ public:
 
 private:
 	void MoveRight(float value);
-	
+
+	void Interact();
+	void ShowMenu();
+
 	/**
 	 *  Input
 	 */

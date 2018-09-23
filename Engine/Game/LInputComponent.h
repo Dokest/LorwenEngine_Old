@@ -2,93 +2,58 @@
 
 #include "Component.h"
 
-#include "KEY_Alphabet.h"
-
-#include <vector>
 #include <functional>
+#include <array>
 
-#include "LGameInputManager.h"
+#include "InputHelpers.h"
 
-
-template<typename>
-struct SInputFunction;
-
-template<>
-struct SInputFunction<float>
-{
-	std::function<void(float)> Function;
-
-	SInputFunction() { }
-};
-
-template<>
-struct SInputFunction<void>
-{
-	std::function<void(void)> Function;
-
-	SInputFunction() { }
-};
-
-struct SAxisInput
-{
-	unsigned int hInputName;
-	SInputFunction<float> Function;
-
-	SAxisInput() { }
-
-};
 
 class LInputComponent : public Component
 {
 private:
-	bool bHasFocus = false;
-	int m_ControllerID = -1;
+	std::array<SInputBind<EInputType::ACTION>, 15> m_BindedButtons;
+	//std::array<std::pair<SAxisBinding, AxisFunction>, 15> m_BindedAxis;
+	//std::array<std::pair<SVirtualAxisBinding, AxisFunction>, 15> m_BindedVirtualAxis;
 
-	std::map<unsigned int, SInputFunction<float>> m_BindedFunctions;
+	static std::hash<std::string> m_Hasher;
 
-	std::map<std::pair<unsigned int, EInputState>, SInputFunction<void>> m_BindedActions;
-	std::map<unsigned int, SInputFunction<float>> m_BindedAxis;
+	/* Device type who this InputController is listening to*/
+	EInputDevice ControllerDevice;
+
+	virtual void OnDestruction();
+	virtual void OnCreation();
+
+	unsigned char ControllerID;
 
 public:
+	inline unsigned char GetControllerID() const { return ControllerID; }
 
-	void CallActionInput(unsigned int functionName, EInputState state)
+
+	void AddActionInput(const std::string inputID, const EButtonAction action, std::function<void(void)> functionPtr);
+	void AddAxisInput(const std::string inputName, std::function<void(float)> functionPtr);
+public:
+	
+	template<class T>
+	void BindAction(const std::string inputName, const EButtonAction action, T* objectInstance, void(T::*function)(void))
 	{
-		m_BindedActions[std::pair<unsigned int, EInputState>(functionName, state)].Function();
+		AddActionInput(inputName, action, std::bind(function, objectInstance));
+	}
+	
+	template<class T>
+	void BindAxis(const std::string inputName, T* objectInstance, void(T::*function)(float))
+	{
+		AddAxisInput(inputName, std::bind(function, objectInstance, std::placeholders::_1));
 	}
 
-	void CallAxisInput(unsigned int hFunctionName, float value)
-	{
-		m_BindedAxis[hFunctionName].Function(value);
-	}
 
-	template<typename ClassOwner>
-	void BindAction(const char* actionName, EInputState state, ClassOwner* classInstance, void(ClassOwner::*function)(void))
-	{
-// 		unsigned int hHashedName = GameInputManager::Singleton_GameInputManager->BindAction(*this, actionName, state);
-// 
-// 		SInputFunction<void> newInput;
-// 		newInput.Function = std::bind(function, classInstance);
-// 		m_BindedActions[std::pair<unsigned int, EInputState>(hHashedName, state)] = newInput;
-	}
+	/**
+	 *  FUNCTION CALLS
+	 */
 
-	template<typename ClassOwner>
-	void BindAxis(const char* actionName, ClassOwner* classInstance, void(ClassOwner::*function)(float))
-	{
-		unsigned int hHashedName = LGameInputManager::BindAxis(actionName, m_ControllerID, this);
+public:
+	void CallActionInput(const int key, const EButtonAction action);
 
-		SInputFunction<float> newInput;
-		newInput.Function = std::bind(function, classInstance, std::placeholders::_1);
-		m_BindedAxis[hHashedName] = newInput;
-	}
+	inline std::array<SInputBind<EInputType::ACTION>, 15>* GetButtonInputs() { return &m_BindedButtons; }
 
-	//template<typename ClassOwner>
-	//void BindAction(const )
-
-	inline unsigned char GetControllerID() { return m_ControllerID; }
-	inline void SetControllerID(unsigned char controllerID) { m_ControllerID = controllerID; }
-
-private:
-	virtual void OnCreation();
 };
-
 

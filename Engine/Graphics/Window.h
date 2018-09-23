@@ -13,16 +13,14 @@ class Window
 private:
 	GLFWwindow * m_pWindow;
 	unsigned int m_Width, m_Height;
-	class LGameInputManager* m_pInputManager;
 
 	const char* m_Title;
 
-	static Window* Singleton_Window;
 public:
 	Window();
 	~Window();
 
-	void Init(unsigned int width, unsigned int height, const char* title, class LGameInputManager* inputManager);
+	void Init(unsigned int width, unsigned int height, const char* title);
 
 	void CheckControllerState();
 
@@ -53,6 +51,5 @@ public:
 	inline GLFWwindow* GetGLFWwindowPointer() const { return m_pWindow; }
 
 public:
-	inline static Window* GetWindowPointer() { return Singleton_Window; }
 };
 
