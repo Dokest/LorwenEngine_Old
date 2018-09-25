@@ -1,9 +1,9 @@
 #pragma once
 
-#include "WorldObject.h"
+#include "EEntity.h"
 
 
-class WPlayerController : public WorldObject // Needs to change to RENDERABLE -> Needs to change to ACTOR
+class WPlayerController : public EEntity // Needs to change to RENDERABLE -> Needs to change to ACTOR
 {
 private:
 	unsigned char m_ControllerID;

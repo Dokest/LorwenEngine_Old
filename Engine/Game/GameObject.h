@@ -34,6 +34,8 @@ public:
 	inline T* RegisterComponent(const char* name)
 	{
 		T* comp = GameObjectManager::RegisterComponent<T>(this);
+		m_Components.push_back(comp);
+
 		return comp;
 	}
 

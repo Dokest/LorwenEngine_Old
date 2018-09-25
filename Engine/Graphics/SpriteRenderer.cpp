@@ -9,6 +9,8 @@
 
 #include "SpriteMaterialManager.h"
 
+#include "Game/Cameras/LCameraManager.h"
+#include "Game/Cameras/LCameraComponent.h"
 
 SpriteRenderer::SpriteRenderer()
 {
@@ -18,12 +20,15 @@ SpriteRenderer::SpriteRenderer()
 
 void SpriteRenderer::Render()
 {
+	Mat4 viewMatrix = LCameraManager::CameraInUse->GetViewMatrix();
 
 	for (SInstanciatedSprite& instances : m_Sprites)
 	{
 		//ShowOpenGLErrors();
 		instances.Material->pShader->Use();
 		instances.Material->pShader->SetMatrix4("pr_matrix", m_ProjectionMatrix);
+		instances.Material->pShader->SetMatrix4("vw_matrix", viewMatrix);
+
 		//ShowOpenGLErrors();
 		std::array<float, 500> buffer;
 		unsigned int i = 0;

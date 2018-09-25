@@ -1,18 +1,25 @@
 #include "EPlayerPawn.h"
 
 #include "Graphics/LSpriteComponent.h"
+#include "Game/Cameras/LCameraComponent.h"
 
 #include <stdlib.h>
 
+#include "Console/ConsoleLogger.h"
+
 EPlayerPawn::EPlayerPawn()
 {
-	SpriteComponent = GameObjectManager::RegisterComponent<LSpriteComponent>(this);
+	SpriteComponent = RegisterComponent<LSpriteComponent>("SpriteComp");
+	CameraComponent = RegisterComponent<LCameraComponent>("CameraComp");
 
 	Transform.Position = Maths::Vec3(400.0f, 50.0f, 0.0f);
 
 	SpriteComponent->SetLocation(Maths::Vec2(Transform.Position.x, Transform.Position.y));
 	SpriteComponent->SetSize(Maths::Vec2(200, 40.f));
 	//SpriteComponent->SetTint(Vec4(0.4f, 0.6f, 0.8f, 1.0f));
+
+	CameraComponent->UseCamera();
+	CameraComponent->SetAbsoluteLocation(Maths::Vec3(SpriteComponent->GetLocation().x, SpriteComponent->GetLocation().y, 0.0f));
 }
 
 
@@ -20,7 +27,6 @@ void EPlayerPawn::MoveRight(float value)
 {
 	if (value != 0)
 	{
-		//printf("Pawn is moving %s with value:%f \n", ((value > 0) ? "right" : "left"), value);
 		m_Velocity = (500.0f * value);
 	}
 	else
@@ -33,17 +39,22 @@ void EPlayerPawn::MoveRight(float value)
  			m_Velocity = 0;
 	}
 
-	//printf("Pawn is moving at %f\n", m_Velocity);
+}
+
+void EPlayerPawn::MoveUp(float value)
+{
+	if (value != 0)
+		CameraComponent->SetAbsoluteLocation(Maths::Vec3(CameraComponent->GetAbsoluteLocation().x, CameraComponent->GetAbsoluteLocation().y + (10 * value), CameraComponent->GetAbsoluteLocation().z));
 }
 
 void EPlayerPawn::Interact()
 {
-	printf("Interact!\n");
+	Logger::ConsoleLog("Interact!");
 }
 
 void EPlayerPawn::ShowMenu()
 {
-	printf("The menu is now Open\n");
+	Logger::ConsoleLog("The menu is now Open");
 }
 
 void EPlayerPawn::SetupInputComponent(class LInputComponent* playerInput)
@@ -51,6 +62,7 @@ void EPlayerPawn::SetupInputComponent(class LInputComponent* playerInput)
 	EPawn::SetupInputComponent(playerInput);
 
 	playerInput->BindAxis("MoveRight", this, &EPlayerPawn::MoveRight);
+	playerInput->BindAxis("MoveUp", this, &EPlayerPawn::MoveUp);
 	playerInput->BindAction("Interact", EButtonAction::RELEASE, this, &EPlayerPawn::Interact);
 	playerInput->BindAction("ShowMenu", EButtonAction::PRESS, this, &EPlayerPawn::ShowMenu);
 }
@@ -67,4 +79,6 @@ void EPlayerPawn::OnUpdate(float deltaTime)
 		FinalPos.x = (1280 - SpriteComponent->GetSize().x / 2) - 5;
 
 	SpriteComponent->SetLocation(FinalPos);
+
+	//CameraComponent->SetAbsoluteLocation(Maths::Vec3(FinalPos.x, FinalPos.y, 0.0f));
 }

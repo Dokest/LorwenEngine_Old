@@ -5,7 +5,7 @@
 #include <functional>
 #include <array>
 
-#include "InputHelpers.h"
+#include "Inputs/InputHelpers.h"
 
 
 class LInputComponent : public Component

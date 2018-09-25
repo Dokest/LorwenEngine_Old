@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game/WorldObject.h"
+#include "Game/EEntity.h"
 
 #include "Shader.h"
 #include "ResourceManager.h"
@@ -14,7 +14,7 @@ enum class ERenderableType : unsigned char
 	DynamicMesh = 11
 };
 
-class Renderable : public WorldObject
+class Renderable : public EEntity
 {
 protected:
 	ERenderableType m_RenderableType = ERenderableType::Sprite;

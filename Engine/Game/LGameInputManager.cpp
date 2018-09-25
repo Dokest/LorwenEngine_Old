@@ -34,14 +34,14 @@ void LGameInputManager::Init(struct GLFWwindow* window)
 void LGameInputManager::CheckInputs()
 {
 	// Go through all the listeners (players)
-	for (SInputListeners& listener : m_InputListeners)
+	for (SInputListeners& inputListener : m_InputListeners)
 	{
 		// If a player is not binded with a Input Component, it's not valid.
-		if(listener.InputComponent == nullptr)
+		if(inputListener.InputComponent == nullptr)
 			continue;
 
 		// Go through all the buttons binded with the input component
-		for (SInputBind<EInputType::ACTION>*& button : listener.Actions)
+		for (SInputBind<EInputType::ACTION>*& button : inputListener.Actions)
 		{
 			// If the key has the same state as last frame, it doesn't need to call the action, as 'HOLD' action type is not supported.
 			if ((EButtonAction)glfwGetKey(m_pWindow, button->Key) == button->LastFrameState)
@@ -58,7 +58,7 @@ void LGameInputManager::CheckInputs()
 
 		}
 
-		for (SInputBind<EInputType::AXIS>*& axis : listener.Axes)
+		for (SInputBind<EInputType::AXIS>*& axis : inputListener.Axes)
 		{
 			float finalResult = glfwGetKey(m_pWindow, axis->PositiveKey);
 
@@ -91,7 +91,6 @@ unsigned char LGameInputManager::AddInputController(class LInputComponent* input
 		if (m_InputListeners[i].InputComponent == nullptr)
 		{
 			m_InputListeners[i].InputComponent = inputController;
-			m_InputListeners[i].Buttons = inputController->GetButtonInputs();
 			return i;
 		}
 	}

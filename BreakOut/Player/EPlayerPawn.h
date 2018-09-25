@@ -6,6 +6,7 @@ class EPlayerPawn : public EPawn
 {
 private:
 	class LSpriteComponent* SpriteComponent;
+	class LCameraComponent* CameraComponent;
 ;
 	float m_Velocity = 0;
 	float m_MaxSpeed = 500.0f;
@@ -13,9 +14,9 @@ private:
 public:
 	EPlayerPawn();
 
-
 private:
 	void MoveRight(float value);
+	void MoveUp(float value);
 
 	void Interact();
 	void ShowMenu();

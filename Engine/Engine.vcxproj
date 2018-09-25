@@ -154,14 +154,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Game\LEntityComponent.h" />
     <ClInclude Include="Game\EPawn.h" />
     <ClInclude Include="Game\GameObjectManager.h" />
-    <ClInclude Include="Game\InputHelpers.h" />
+    <ClInclude Include="Game\Inputs\InputHelpers.h" />
     <ClInclude Include="Game\Inputs\KeyboardEnum.h" />
     <ClInclude Include="Game\KEY_Alphabet.h" />
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\LGameInputManager.h" />
-    <ClInclude Include="Game\WorldObject.h" />
+    <ClInclude Include="Game\STransform.h" />
+    <ClInclude Include="Game\EEntity.h" />
     <ClInclude Include="Graphics\BaseBuffer.h" />
     <ClInclude Include="Game\Component.h" />
     <ClInclude Include="Game\BaseLevel.h" />
@@ -176,6 +178,10 @@
     <ClInclude Include="Game\LGameMode.h" />
     <ClInclude Include="Graphics\SpriteMaterialManager.h" />
     <ClInclude Include="Game\LInputComponent.h" />
+    <ClInclude Include="Game\Cameras\LCameraComponent.h" />
+    <ClInclude Include="Game\Cameras\LCameraManager.h" />
+    <ClInclude Include="Console\ConsoleLogger.h" />
+    <ClInclude Include="LBaseMaterial.h" />
     <ClInclude Include="Utils\BasicTimer.h" />
     <ClInclude Include="Graphics\IndexBuffer.h" />
     <ClInclude Include="Maths\Mat4.h" />
@@ -197,17 +203,21 @@
     <ClInclude Include="Utils\FileReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\LEntityComponent.cpp" />
     <ClCompile Include="Game\BaseLevel.cpp" />
     <ClCompile Include="Game\EPawn.cpp" />
     <ClCompile Include="Game\GameObjectManager.cpp" />
     <ClCompile Include="Game\LGameInputManager.cpp" />
-    <ClCompile Include="Game\WorldObject.cpp" />
+    <ClCompile Include="Game\EEntity.cpp" />
     <ClCompile Include="Graphics\BaseBuffer.cpp" />
     <ClCompile Include="Graphics\BatchSpriteRenderer.cpp" />
     <ClCompile Include="Graphics\IndexBuffer.cpp" />
     <ClCompile Include="Game\LGameMode.cpp" />
     <ClCompile Include="Graphics\SpriteMaterialManager.cpp" />
     <ClCompile Include="Game\LInputComponent.cpp" />
+    <ClCompile Include="Game\Cameras\LCameraComponent.cpp" />
+    <ClCompile Include="Game\Cameras\LCameraManager.cpp" />
+    <ClCompile Include="LBaseMaterial.cpp" />
     <ClCompile Include="Maths\Mat4.cpp" />
     <ClCompile Include="Maths\Vec2.cpp" />
     <ClCompile Include="Maths\Vec3.cpp" />

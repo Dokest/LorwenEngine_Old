@@ -12,7 +12,7 @@
 #include "Graphics/SpriteRen.h"
 
 #include "Game/GameObjectManager.h"
-#include "Game/WorldObject.h"
+#include "Game/EEntity.h"
 
 #include "Player/PlayerPaddle.h"
 #include "Player/EPlayerPawn.h"
@@ -44,7 +44,10 @@ void BasicLevel::PrepareLevel()
 	EPlayerPawn* pawn = GameObjectManager::RegisterGameObject<EPlayerPawn>("PlayerPawn");
 	controller->PossessPawn(pawn);
 
-	
+	// Background
+	LSpriteComponent* backgroundSprite = new LSpriteComponent;
+	backgroundSprite->SetMaterialID(manager->GetMaterial("Background_1").ID);
+	renderer.Submit("Background_1", backgroundSprite);
 }
 
 void BasicLevel::Load()

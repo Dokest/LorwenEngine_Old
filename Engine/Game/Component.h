@@ -9,7 +9,7 @@ class Component : public Object
 public:
 	class GameObject* Owner;
 
-private:
+protected:
 	virtual void OnCreation() {}
 	virtual void OnUpdate(float deltaTime) {}
 	virtual void OnDestruction() {}

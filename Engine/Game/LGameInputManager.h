@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 
-#include "InputHelpers.h"
+#include "Inputs/InputHelpers.h"
 
 #define NUMBER_OF_BUTTON_BINDINGS 15
 
@@ -22,8 +22,6 @@ struct SFileControlAction
 struct SInputListeners 
 {
 	class LInputComponent* InputComponent;
-
-	std::array<SInputBind<EInputType::ACTION>, 15>* Buttons;
 
 	std::vector<SInputBind<EInputType::ACTION>*> Actions;
 	std::vector<SInputBind<EInputType::AXIS>*> Axes;

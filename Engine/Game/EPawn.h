@@ -1,8 +1,8 @@
 #pragma once
 
-#include "WorldObject.h"
+#include "EEntity.h"
 
-class EPawn : public WorldObject
+class EPawn : public EEntity
 {
 private:
 	class WPlayerController* m_PlayerController;

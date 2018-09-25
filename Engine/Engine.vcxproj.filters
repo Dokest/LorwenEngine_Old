@@ -65,9 +65,6 @@
     <ClInclude Include="Game\GameObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Game\WorldObject.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\SpriteRen.h">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClInclude>
@@ -90,7 +87,6 @@
     <ClInclude Include="Utils\FileReader.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Game\EPawn.h" />
     <ClInclude Include="Game\LGameMode.h" />
     <ClInclude Include="Graphics\SpriteMaterialManager.h">
       <Filter>Graphics Engine\Renderables</Filter>
@@ -104,8 +100,18 @@
     <ClInclude Include="Game\GameObjectManager.h" />
     <ClInclude Include="Game\LInputComponent.h" />
     <ClInclude Include="Game\LGameInputManager.h" />
-    <ClInclude Include="Game\InputHelpers.h" />
     <ClInclude Include="Game\Inputs\KeyboardEnum.h" />
+    <ClInclude Include="Game\EPawn.h" />
+    <ClInclude Include="Game\Inputs\InputHelpers.h" />
+    <ClInclude Include="Game\STransform.h" />
+    <ClInclude Include="Game\Cameras\LCameraComponent.h" />
+    <ClInclude Include="Game\Cameras\LCameraManager.h" />
+    <ClInclude Include="Game\LEntityComponent.h" />
+    <ClInclude Include="Game\EEntity.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Console\ConsoleLogger.h" />
+    <ClInclude Include="LBaseMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Maths\Mat4.cpp">
@@ -150,9 +156,6 @@
     <ClCompile Include="Graphics\Window.cpp">
       <Filter>Graphics Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game\WorldObject.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\SpriteRen.cpp">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClCompile>
@@ -172,12 +175,19 @@
     <ClCompile Include="Graphics\LSpriteComponent.cpp">
       <Filter>Graphics Engine\Renderables</Filter>
     </ClCompile>
-    <ClCompile Include="Game\BaseLevel.cpp">
-      <Filter>Game Objects\Levels</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObjectManager.cpp" />
     <ClCompile Include="Game\LInputComponent.cpp" />
     <ClCompile Include="Game\LGameInputManager.cpp" />
+    <ClCompile Include="Game\BaseLevel.cpp">
+      <Filter>Game Objects\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Cameras\LCameraComponent.cpp" />
+    <ClCompile Include="Game\Cameras\LCameraManager.cpp" />
+    <ClCompile Include="Game\LEntityComponent.cpp" />
+    <ClCompile Include="Game\EEntity.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LBaseMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Maths">

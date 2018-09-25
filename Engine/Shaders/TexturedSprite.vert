@@ -8,11 +8,12 @@ out vec2 TexCoords;
 out vec4 Tint;
 
 uniform mat4 pr_matrix;
+uniform mat4 vw_matrix;
 
 void main()
 {
 	TexCoords = texCoords;
 	Tint = tint;
 
-	gl_Position = pr_matrix * vec4(vertex.xy, 0.0f, 1.0f);
+	gl_Position = pr_matrix * vw_matrix * vec4(vertex.xy, 0.0f, 1.0f);
 }
